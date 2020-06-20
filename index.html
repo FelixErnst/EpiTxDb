@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">EpiTxDb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -87,10 +87,12 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="epitxdb-build-status-codecov" class="section level1">
+<div id="epitxdb-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#epitxdb-build-status-codecov" class="anchor"></a>EpiTxDb <a href="https://travis-ci.com/FelixErnst/EpiTxDb"><img src="https://travis-ci.com/FelixErnst/EpiTxDb.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/gh/FelixErnst/EpiTxDb"><img src="https://codecov.io/gh/FelixErnst/EpiTxDb/branch/master/graph/badge.svg" alt="codecov"></a>
+<a href="#epitxdb-" class="anchor"></a>EpiTxDb <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/EpiTxDb/EpiTxDb.png" height="200" align="right">
 </h1></div>
+<!-- badges: start -->
+
 <p>The epitranscriptome includes all post-transcriptional modifications of the RNA and describes and additional layer of information encoded on RNA. Like the term epigenome it is not about a change in nucleotide sequences, but the addition of functional elements through modifications.</p>
 <p>With the development of high throughput detection strategies for specific RNA modifications, such as miCLIP and Pseudo-Seq amongst other, a large number of modified positions have been identified and were summarized via the RMBase project (<a href="#Literature">Xuan et al. 2017, Sun et al. 2015</a>) project.</p>
 <p>To make these information avaialble within the Bioconductor universe <code>EpiTxDb</code> was developed, which facilitates the storage of epitranscriptomic information. More specifically, it can keep track of modification identity, position, the enzyme for introducing it on the RNA, a specifier which determines the position on the RNA to be modified and the literature references each modification is associated with.</p>
@@ -122,8 +124,8 @@ library(EpiTxDb)</code></pre>
 <h1 class="hasAnchor">
 <a href="#literature" class="anchor"></a>Literature</h1>
 <ul>
-<li><p>Jia-Jia Xuan, Wen-Ju Sun, Ke-Ren Zhou, Shun Liu, Peng-Hui Lin, Ling-Ling Zheng, Liang-Hu Qu, Jian-Hua Yang (2017): “RMBase v2.0: Deciphering the Map of RNA Modifications from Epitranscriptome Sequencing Data.” Nucleic Acids Research, Volume 46, Issue D1, 4 January 2018, Pages D327–D334. <a href="doi:%5B10.1093/nar/gkx934%5D(https://doi.org/10.1093/nar/gkx934)" class="uri">doi:[10.1093/nar/gkx934](https://doi.org/10.1093/nar/gkx934)</a></p></li>
-<li><p>Wen-Ju Sun, Jun-Hao Li, Shun Liu, Jie Wu, Hui Zhou, Liang-Hu Qu, Jian-Hua Yang (2018): “RMBase: a resource for decoding the landscape of RNA modifications from high-throughput sequencing data”, Nucleic Acids Research, Volume 44, Issue D1, 4 January 2016, Pages D259–D265. <a href="doi:%5B10.1093/nar/gkv1036%5D(https://doi.org/10.1093/nar/gkv1036)" class="uri">doi:[10.1093/nar/gkv1036](https://doi.org/10.1093/nar/gkv1036)</a>.</p></li>
+<li><p>Jia-Jia Xuan, Wen-Ju Sun, Ke-Ren Zhou, Shun Liu, Peng-Hui Lin, Ling-Ling Zheng, Liang-Hu Qu, Jian-Hua Yang (2017): “RMBase v2.0: Deciphering the Map of RNA Modifications from Epitranscriptome Sequencing Data.” Nucleic Acids Research, Volume 46, Issue D1, 4 January 2018, Pages D327–D334. <a href="doi:%5B10.1093/nar/gkx934" class="uri">doi:[10.1093/nar/gkx934</a>](<a href="https://doi.org/10.1093/nar/gkx934" class="uri">https://doi.org/10.1093/nar/gkx934</a>)</p></li>
+<li><p>Wen-Ju Sun, Jun-Hao Li, Shun Liu, Jie Wu, Hui Zhou, Liang-Hu Qu, Jian-Hua Yang (2018): “RMBase: a resource for decoding the landscape of RNA modifications from high-throughput sequencing data”, Nucleic Acids Research, Volume 44, Issue D1, 4 January 2016, Pages D259–D265. <a href="doi:%5B10.1093/nar/gkv1036" class="uri">doi:[10.1093/nar/gkv1036</a>](<a href="https://doi.org/10.1093/nar/gkv1036" class="uri">https://doi.org/10.1093/nar/gkv1036</a>).</p></li>
 </ul>
 </div>
 
@@ -160,7 +162,17 @@ library(EpiTxDb)</code></pre>
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/FelixErnst/EpiTxDb/actions/"><img src="https://github.com/FelixErnst/EpiTxDb/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://travis-ci.com/FelixErnst/EpiTxDb"><img src="https://travis-ci.com/FelixErnst/EpiTxDb.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="http://bioconductor.org/checkResults/devel/bioc-LATEST/EpiTxDb/"><img src="https://bioconductor.org/shields/build/devel/bioc/EpiTxDb.svg" alt="BioC Build"></a></li>
+<li><a href="https://codecov.io/gh/FelixErnst/EpiTxDb"><img src="https://codecov.io/gh/FelixErnst/EpiTxDb/branch/master/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://doi.org/doi:10.18129/B9.bioc.EpiTxDb"><img src="https://bioconductor.org/shields/years-in-bioc/EpiTxDb.svg" alt="BioC Years"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
