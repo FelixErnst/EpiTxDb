@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiTxDb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -79,13 +79,14 @@
 
       
 
-      </header><script src="EpiTxDb_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="EpiTxDb_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="EpiTxDb_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="EpiTxDb_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>EpiTxDb: Storing and accessing epitranscriptomic information using the AnnotationDbi interface</h1>
                         <h4 class="author">Felix G.M. Ernst</h4>
             
-            <h4 class="date">2020-06-20</h4>
+            <h4 class="date">2020-12-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/FelixErnst/EpiTxDb/blob/master/vignettes/EpiTxDb.Rmd"><code>vignettes/EpiTxDb.Rmd</code></a></small>
       <div class="hidden name"><code>EpiTxDb.Rmd</code></div>
@@ -108,10 +109,11 @@ document.addEventListener("DOMContentLoaded", function() {
 </script><div id="installation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h1>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
 
-<span class="kw pkg">BiocManager</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"EpiTxDb"</span>,<span class="st">"EpiTxDb.Hs.hg38"</span>))</pre></body></html></div>
+<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"EpiTxDb"</span>,<span class="st">"EpiTxDb.Hs.hg38"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
@@ -123,17 +125,20 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="getting-started" class="section level1">
 <h1 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h1>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EpiTxDb</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EpiTxDb.Hs.hg38</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FelixErnst/EpiTxDb">EpiTxDb</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FelixErnst/EpiTxDb.Hs.hg38">EpiTxDb.Hs.hg38</a></span><span class="op">)</span></code></pre></div>
 <p>The class <code>EpiTxDb</code> is the class for storing the epitranscriptomic data. It inherits the inner workings of <code>AnnotationDb</code> class from the <code>AnnotationDbi</code> package.</p>
 <p>As an example for the vignette the snoRNAdb data <a href="#References"><span class="citation">(Lestrade and Weber 2006)</span></a> from the <code>EpiTxDb.Hs.hg38</code> package will be used. The data is stored in the <code>AnnotationHub</code> and is downloaded and cached upon the first request.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">etdb</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html">EpiTxDb.Hs.hg38.snoRNAdb</a></span>()</pre></body></html></div>
-<pre><code>## using temporary cache /tmp/RtmpOal4CO/BiocFileCache</code></pre>
-<pre><code>## snapshotDate(): 2020-04-27</code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html">EpiTxDb.Hs.hg38.snoRNAdb</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## using temporary cache /tmp/Rtmp4U9NDE/BiocFileCache</code></pre>
+<pre><code>## snapshotDate(): 2020-11-02</code></pre>
 <pre><code>## downloading 1 resources</code></pre>
 <pre><code>## retrieving 1 resource</code></pre>
 <pre><code>## loading from cache</code></pre>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">etdb</span></pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">etdb</span></code></pre></div>
 <pre><code>## EpiTxDb object:
 ## # Db type: EpiTxDb
 ## # Supporting package: EpiTxDb
@@ -148,25 +153,29 @@ document.addEventListener("DOMContentLoaded", function() {
 ## # RSQLite version at creation time: 2.2.0
 ## # DBSCHEMAVERSION: 1.0</code></pre>
 <p>As expected for an <code>AnnotationDb</code> class the general accessors are available.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/select.html">keytypes</a></span>(<span class="no">etdb</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/select.html">keytypes</a></span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] "MODID"            "MODNAME"          "MODSTRAND"        "MODTYPE"         
 ##  [5] "REF"              "REFTYPE"          "RXENSEMBL"        "RXENSEMBLTRANS"  
 ##  [9] "RXENTREZID"       "RXGENENAME"       "SNID"             "SNNAME"          
 ## [13] "SPECENSEMBL"      "SPECENSEMBLTRANS" "SPECENTREZID"     "SPECGENENAME"    
 ## [17] "SPECTYPE"</code></pre>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/select.html">columns</a></span>(<span class="no">etdb</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/select.html">columns</a></span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] "MODEND"           "MODID"            "MODNAME"          "MODSTART"        
 ##  [5] "MODSTRAND"        "MODTYPE"          "REF"              "REFID"           
 ##  [9] "REFTYPE"          "RXENSEMBL"        "RXENSEMBLTRANS"   "RXENTREZID"      
 ## [13] "RXGENENAME"       "RXID"             "RXRANK"           "SNID"            
 ## [17] "SNNAME"           "SPECENSEMBL"      "SPECENSEMBLTRANS" "SPECENTREZID"    
 ## [21] "SPECGENENAME"     "SPECID"           "SPECTYPE"</code></pre>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="../reference/select.html">keys</a></span>(<span class="no">etdb</span>, <span class="st">"MODID"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/select.html">keys</a></span><span class="op">(</span><span class="va">etdb</span>, <span class="st">"MODID"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "1" "2" "3" "4" "5" "6"</code></pre>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="../reference/select.html">select</a></span>(<span class="no">etdb</span>, <span class="kw">keys</span> <span class="kw">=</span> <span class="st">"1"</span>,
-       <span class="kw">columns</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"MODNAME"</span>,<span class="st">"MODTYPE"</span>,<span class="st">"MODSTART"</span>,<span class="st">"MODSTRAND"</span>,<span class="st">"SNNAME"</span>,
-                   <span class="st">"RXGENENAME"</span>,<span class="st">"SPECTYPE"</span>,<span class="st">"SPECGENENAME"</span>),
-       <span class="kw">keytype</span> <span class="kw">=</span> <span class="st">"MODID"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/select.html">select</a></span><span class="op">(</span><span class="va">etdb</span>, keys <span class="op">=</span> <span class="st">"1"</span>,
+       columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MODNAME"</span>,<span class="st">"MODTYPE"</span>,<span class="st">"MODSTART"</span>,<span class="st">"MODSTRAND"</span>,<span class="st">"SNNAME"</span>,
+                   <span class="st">"RXGENENAME"</span>,<span class="st">"SPECTYPE"</span>,<span class="st">"SPECGENENAME"</span><span class="op">)</span>,
+       keytype <span class="op">=</span> <span class="st">"MODID"</span><span class="op">)</span></code></pre></div>
 <pre><code>## 'select()' returned 1:1 mapping between keys and columns</code></pre>
 <pre><code>##   MODID MODNAME MODTYPE MODSTART MODSTRAND    SNNAME  RXGENENAME SPECTYPE
 ## 1     1   Um_14      Um       14         + NR_003285 fibrillarin   snoRNA
@@ -174,11 +183,14 @@ document.addEventListener("DOMContentLoaded", function() {
 ## 1      SNORD71</code></pre>
 <p>The columns with the prefix <code>RX</code> or <code>SPEC</code> reference the reaction enzyme and the location specifier. This can be the same information, but for ribosomal modifications from the snoRNAdb it is of course fibrillarin and a snoRNA.</p>
 <p>In addition the following accessor for metadata are available as well.</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu">species</span>(<span class="no">etdb</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">species</span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "Homo sapiens"</code></pre>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu">organism</span>(<span class="no">etdb</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">organism</span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "Homo sapiens"</code></pre>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="fu">seqlevels</span>(<span class="no">etdb</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">seqlevels</span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "NR_003285" "NR_003286" "NR_003287" "NR_004430" "NR_002716" "NR_003925"
 ## [7] "NR_002756" "NR_004394" "NR_029422"</code></pre>
 </div>
@@ -186,30 +198,27 @@ document.addEventListener("DOMContentLoaded", function() {
 <h1 class="hasAnchor">
 <a href="#accessing-rna-modifications" class="anchor"></a>Accessing RNA modifications</h1>
 <p>The specialized accessors are <code><a href="../reference/modifications.html">modifications()</a></code> and <code><a href="../reference/modifications.html">modificationsBy()</a></code>. <code><a href="../reference/modifications.html">modifications()</a></code> allows for filtering results, whereas <code><a href="../reference/modifications.html">modificationsBy()</a></code> returns all the modifications in batches separated by certain information.</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="fu"><a href="../reference/modifications.html">modifications</a></span>(<span class="no">etdb</span>, <span class="kw">columns</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"mod_id"</span>,<span class="st">"mod_type"</span>,<span class="st">"mod_name"</span>,
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/modifications.html">modifications</a></span><span class="op">(</span><span class="va">etdb</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mod_id"</span>,<span class="st">"mod_type"</span>,<span class="st">"mod_name"</span>,
                                 <span class="st">"rx_genename"</span>,<span class="st">"spec_genename"</span>,
-                                <span class="st">"ref_type"</span>,<span class="st">"ref"</span>),
-              <span class="kw">filter</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">mod_id</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">3</span>))</pre></body></html></div>
+                                <span class="st">"ref_type"</span>,<span class="st">"ref"</span><span class="op">)</span>,
+              filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mod_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## GRanges object with 3 ranges and 7 metadata columns:
 ##        seqnames    ranges strand |    mod_id    mod_type    mod_name
 ##           &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt; &lt;character&gt; &lt;character&gt;
 ##   [1] NR_003285        14      + |         1          Um       Um_14
 ##   [2] NR_003285        55      + |         2           Y        Y_55
 ##   [3] NR_003285        69      + |         3           Y        Y_69
-##                             rx_genename   spec_genename        ref_type
-##                         &lt;CharacterList&gt; &lt;CharacterList&gt; &lt;CharacterList&gt;
-##   [1]                       fibrillarin         SNORD71            PMID
-##   [2] dyskerin pseudouridine synthase 1         SNORA72            PMID
-##   [3] dyskerin pseudouridine synthase 1         SNORA69            PMID
-##                   ref
-##       &lt;CharacterList&gt;
-##   [1]        16381836
-##   [2]        16381836
-##   [3]        16381836
+##                  rx_genename   spec_genename        ref_type             ref
+##              &lt;CharacterList&gt; &lt;CharacterList&gt; &lt;CharacterList&gt; &lt;CharacterList&gt;
+##   [1]            fibrillarin         SNORD71            PMID        16381836
+##   [2] dyskerin pseudouridi..         SNORA72            PMID        16381836
+##   [3] dyskerin pseudouridi..         SNORA69            PMID        16381836
 ##   -------
 ##   seqinfo: 9 sequences from hg38 genome; no seqlengths</code></pre>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="co"># split by sequence name, usually a transcipt identifier</span>
-<span class="fu"><a href="../reference/modifications.html">modificationsBy</a></span>(<span class="no">etdb</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"seqnames"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># split by sequence name, usually a transcipt identifier</span>
+<span class="fu"><a href="../reference/modifications.html">modificationsBy</a></span><span class="op">(</span><span class="va">etdb</span>, by <span class="op">=</span> <span class="st">"seqnames"</span><span class="op">)</span></code></pre></div>
 <pre><code>## GRangesList object of length 9:
 ## $NR_003285
 ## GRanges object with 4 ranges and 3 metadata columns:
@@ -224,8 +233,9 @@ document.addEventListener("DOMContentLoaded", function() {
 ## 
 ## ...
 ## &lt;8 more elements&gt;</code></pre>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="co"># split modification type</span>
-<span class="fu"><a href="../reference/modifications.html">modificationsBy</a></span>(<span class="no">etdb</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"modtype"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># split modification type</span>
+<span class="fu"><a href="../reference/modifications.html">modificationsBy</a></span><span class="op">(</span><span class="va">etdb</span>, by <span class="op">=</span> <span class="st">"modtype"</span><span class="op">)</span></code></pre></div>
 <pre><code>## GRangesList object of length 5:
 ## $Am
 ## GRanges object with 39 ranges and 3 metadata columns:
@@ -252,86 +262,95 @@ document.addEventListener("DOMContentLoaded", function() {
 <h1 class="hasAnchor">
 <a href="#shifting-coordinates-from-genomic-to-transcritomic" class="anchor"></a>Shifting coordinates from genomic to transcritomic</h1>
 <p>Since epitranscriptomic modifications by their nature refere to each individual it might be of interest to shift the coordinates transctipt coordinates keeping in mind that with transcript variants multiple options exist for each of the transcript maturation process.</p>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">TxDb.Hsapiens.UCSC.hg38.knownGene</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">BSgenome.Hsapiens.UCSC.hg38</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="no">txdb</span> <span class="kw">&lt;-</span> <span class="no">TxDb.Hsapiens.UCSC.hg38.knownGene</span>
-<span class="fu">seqlevels</span>(<span class="no">txdb</span>) <span class="kw">&lt;-</span> <span class="st">"chr1"</span>
-<span class="no">bs</span> <span class="kw">&lt;-</span> <span class="no">BSgenome.Hsapiens.UCSC.hg38</span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">TxDb.Hsapiens.UCSC.hg38.knownGene</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">BSgenome.Hsapiens.UCSC.hg38</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">txdb</span> <span class="op">&lt;-</span> <span class="va">TxDb.Hsapiens.UCSC.hg38.knownGene</span>
+<span class="fu">seqlevels</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"chr1"</span>
+<span class="va">bs</span> <span class="op">&lt;-</span> <span class="va">BSgenome.Hsapiens.UCSC.hg38</span>
 
-<span class="no">etdb</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html">EpiTxDb.Hs.hg38.RMBase</a></span>()</pre></body></html></div>
-<pre><code>## snapshotDate(): 2020-04-27</code></pre>
+<span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html">EpiTxDb.Hs.hg38.RMBase</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## snapshotDate(): 2020-11-02</code></pre>
 <pre><code>## downloading 1 resources</code></pre>
 <pre><code>## retrieving 1 resource</code></pre>
 <pre><code>## loading from cache</code></pre>
-<div class="sourceCode" id="cb38"><html><body><pre class="r"><span class="no">tx</span> <span class="kw">&lt;-</span> <span class="fu">exonsBy</span>(<span class="no">txdb</span>)
-<span class="no">mod</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/modifications.html">modifications</a></span>(<span class="no">etdb</span>, <span class="kw">filter</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">sn_name</span> <span class="kw">=</span> <span class="st">"chr1"</span>))
-<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">mod</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tx</span> <span class="op">&lt;-</span> <span class="fu">exonsBy</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span>
+<span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modifications.html">modifications</a></span><span class="op">(</span><span class="va">etdb</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>sn_name <span class="op">=</span> <span class="st">"chr1"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 47275</code></pre>
-<p>In the following example we will focus on shifting the coordinates to individual mature transcripts. However, keep in mind, that premature transcript might be of interest as well and this can be controlled via the <code>tx</code> arguments of <code><a href="../reference/shiftGenomicToTranscript.html">shiftGenomicToTranscript()</a></code></p>
-<div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="no">mod_tx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/shiftGenomicToTranscript.html">shiftGenomicToTranscript</a></span>(<span class="no">mod</span>, <span class="no">tx</span>)</pre></body></html></div>
+<p>In the following example we will focus on shifting the coordinates to individual mature transcripts. However, keep in mind, that premature transcript might be of interest as well and this can be controlled via the <code>tx</code> arguments of <code><a href="../reference/shiftTranscriptToGenomic.html">shiftGenomicToTranscript()</a></code></p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod_tx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/shiftTranscriptToGenomic.html">shiftGenomicToTranscript</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">tx</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning: Coordinates for 905 ranges of 'subject' not found:
 ## 'chr1:14662:-','chr1:14668:-','chr1:14766:-','chr1:139005:-','chr1:139020:-','chr1:139040:-','chr1:139127:-','chr1:629454:+','chr1:629456:+','chr1:629465:+'
 ## and more ...</code></pre>
-<div class="sourceCode" id="cb42"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">mod_tx</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 157694</code></pre>
 <p>Due to multiple matches for each transcript variant the number of modifications has increased.</p>
 <p>With the we can plot the relative positions of modifications by type on <code>chr1</code> transcripts.</p>
-<div class="sourceCode" id="cb44"><html><body><pre class="r"><span class="no">mod_tx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span>(<span class="no">mod_tx</span>,<span class="fu">seqnames</span>(<span class="no">mod_tx</span>))
-<span class="no">names</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Reduce</a></span>(<span class="no">intersect</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">mod_tx</span>),<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">tx</span>)))
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod_tx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span><span class="op">(</span><span class="va">mod_tx</span>,<span class="fu">seqnames</span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span><span class="op">)</span>
+<span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="co"># Getting the corresponding 5'-UTR and 3'-UTR annotations</span>
-<span class="no">fp</span> <span class="kw">&lt;-</span> <span class="fu">fiveUTRsByTranscript</span>(<span class="no">txdb</span>)
-<span class="no">tp</span> <span class="kw">&lt;-</span> <span class="fu">threeUTRsByTranscript</span>(<span class="no">txdb</span>)
-<span class="no">tx</span> <span class="kw">&lt;-</span> <span class="no">tx</span>[<span class="no">names</span>]
-<span class="no">mod_tx</span> <span class="kw">&lt;-</span> <span class="no">mod_tx</span>[<span class="no">names</span>]
-<span class="no">fp_m</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span>(<span class="no">names</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">fp</span>))
-<span class="no">fp_m</span> <span class="kw">&lt;-</span> <span class="no">fp_m</span>[!<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">fp_m</span>)]
-<span class="no">tp_m</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span>(<span class="no">names</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">tp</span>))
-<span class="no">tp_m</span> <span class="kw">&lt;-</span> <span class="no">tp_m</span>[!<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">tp_m</span>)]
-<span class="no">fp</span> <span class="kw">&lt;-</span> <span class="no">fp</span>[<span class="no">fp_m</span>]
-<span class="no">tp</span> <span class="kw">&lt;-</span> <span class="no">tp</span>[<span class="no">tp_m</span>]
+<span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu">fiveUTRsByTranscript</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span>
+<span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu">threeUTRsByTranscript</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span>
+<span class="va">tx</span> <span class="op">&lt;-</span> <span class="va">tx</span><span class="op">[</span><span class="va">names</span><span class="op">]</span>
+<span class="va">mod_tx</span> <span class="op">&lt;-</span> <span class="va">mod_tx</span><span class="op">[</span><span class="va">names</span><span class="op">]</span>
+<span class="va">fp_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">names</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">fp</span><span class="op">)</span><span class="op">)</span>
+<span class="va">fp_m</span> <span class="op">&lt;-</span> <span class="va">fp_m</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">fp_m</span><span class="op">)</span><span class="op">]</span>
+<span class="va">tp_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">names</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tp</span><span class="op">)</span><span class="op">)</span>
+<span class="va">tp_m</span> <span class="op">&lt;-</span> <span class="va">tp_m</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">tp_m</span><span class="op">)</span><span class="op">]</span>
+<span class="va">fp</span> <span class="op">&lt;-</span> <span class="va">fp</span><span class="op">[</span><span class="va">fp_m</span><span class="op">]</span>
+<span class="va">tp</span> <span class="op">&lt;-</span> <span class="va">tp</span><span class="op">[</span><span class="va">tp_m</span><span class="op">]</span>
 
 <span class="co"># Getting lengths of transcripts, 5'-UTR and 3'-UTR</span>
-<span class="no">tx_lengths</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="fu">width</span>(<span class="no">tx</span>))
-<span class="no">fp_lengths</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0L</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">tx</span>))
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">fp_lengths</span>) <span class="kw">&lt;-</span> <span class="no">names</span>
-<span class="no">fp_lengths</span>[<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">fp</span>)] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="fu">width</span>(<span class="no">fp</span>))
-<span class="no">tp_lengths</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0L</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">tx</span>))
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">tp_lengths</span>) <span class="kw">&lt;-</span> <span class="no">names</span>
-<span class="no">tp_lengths</span>[<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">tp</span>)] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="fu">width</span>(<span class="no">tp</span>))
+<span class="va">tx_lengths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu">width</span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span>
+<span class="va">fp_lengths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0L</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">fp_lengths</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">names</span>
+<span class="va">fp_lengths</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">fp</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu">width</span><span class="op">(</span><span class="va">fp</span><span class="op">)</span><span class="op">)</span>
+<span class="va">tp_lengths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0L</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tp_lengths</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">names</span>
+<span class="va">tp_lengths</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tp</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu">width</span><span class="op">(</span><span class="va">tp</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Rescale modifications</span>
 <span class="co"># CDS start is at position 1L and cds end at position 1000L</span>
-<span class="no">from</span> <span class="kw">&lt;-</span> <span class="fu">IRanges</span>(<span class="no">fp_lengths</span>+<span class="fl">1L</span>, <span class="no">tx_lengths</span> - <span class="no">tp_lengths</span>)
-<span class="no">to</span> <span class="kw">&lt;-</span> <span class="fu">IRanges</span>(<span class="fl">1L</span>,<span class="fl">1000L</span>)
-<span class="no">mod_rescale</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rescale.html">rescale</a></span>(<span class="no">mod_tx</span>, <span class="no">to</span>, <span class="no">from</span>)
+<span class="va">from</span> <span class="op">&lt;-</span> <span class="fu">IRanges</span><span class="op">(</span><span class="va">fp_lengths</span><span class="op">+</span><span class="fl">1L</span>, <span class="va">tx_lengths</span> <span class="op">-</span> <span class="va">tp_lengths</span><span class="op">)</span>
+<span class="va">to</span> <span class="op">&lt;-</span> <span class="fu">IRanges</span><span class="op">(</span><span class="fl">1L</span>,<span class="fl">1000L</span><span class="op">)</span>
+<span class="va">mod_rescale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rescale.html">rescale</a></span><span class="op">(</span><span class="va">mod_tx</span>, <span class="va">to</span>, <span class="va">from</span><span class="op">)</span>
 
 <span class="co"># Construct result data.frame</span>
-<span class="no">rel_pos</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">mod_type</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="fu">mcols</span>(<span class="no">mod_rescale</span>,<span class="kw">level</span><span class="kw">=</span><span class="st">"within"</span>)[,<span class="st">"mod_type"</span>]),
-                      <span class="kw">rel_pos</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/start.html">start</a></span>(<span class="no">mod_rescale</span>)))
-<span class="no">rel_pos</span> <span class="kw">&lt;-</span> <span class="no">rel_pos</span>[<span class="no">rel_pos</span>$<span class="no">rel_pos</span> <span class="kw">&lt;</span> <span class="fl">1500</span> <span class="kw">&amp;</span> <span class="no">rel_pos</span>$<span class="no">rel_pos</span> <span class="kw">&gt;</span> -<span class="fl">500</span>,]</pre></body></html></div>
-<div class="sourceCode" id="cb45"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">rel_pos</span>[<span class="no">rel_pos</span>$<span class="no">mod_type</span> <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"m6A"</span>,<span class="st">"m1A"</span>,<span class="st">"Y"</span>),],
-       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">rel_pos</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="no">mod_type</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span>()</pre></body></html></div>
+<span class="va">rel_pos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>mod_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu">mcols</span><span class="op">(</span><span class="va">mod_rescale</span>,level<span class="op">=</span><span class="st">"within"</span><span class="op">)</span><span class="op">[</span>,<span class="st">"mod_type"</span><span class="op">]</span><span class="op">)</span>,
+                      rel_pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/start.html">start</a></span><span class="op">(</span><span class="va">mod_rescale</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">rel_pos</span> <span class="op">&lt;-</span> <span class="va">rel_pos</span><span class="op">[</span><span class="va">rel_pos</span><span class="op">$</span><span class="va">rel_pos</span> <span class="op">&lt;</span> <span class="fl">1500</span> <span class="op">&amp;</span> <span class="va">rel_pos</span><span class="op">$</span><span class="va">rel_pos</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">500</span>,<span class="op">]</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rel_pos</span><span class="op">[</span><span class="va">rel_pos</span><span class="op">$</span><span class="va">mod_type</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m6A"</span>,<span class="st">"m1A"</span>,<span class="st">"Y"</span><span class="op">)</span>,<span class="op">]</span>,
+       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rel_pos</span>, colour <span class="op">=</span> <span class="va">mod_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="EpiTxDb_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session info</h1>
-<div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()</pre></body></html></div>
-<pre><code>## R version 4.0.1 (2020-06-06)
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## R Under development (unstable) (2020-11-02 r79396)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 18.04.4 LTS
+## Running under: Ubuntu 20.04.1 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so
+## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
 ## 
 ## locale:
-##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
-##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
-##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
 ## [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
@@ -340,79 +359,73 @@ document.addEventListener("DOMContentLoaded", function() {
 ## other attached packages:
 ##  [1] ggplot2_3.3.2                           
 ##  [2] BSgenome.Hsapiens.UCSC.hg38_1.4.3       
-##  [3] BSgenome_1.56.0                         
-##  [4] rtracklayer_1.48.0                      
+##  [3] BSgenome_1.59.2                         
+##  [4] rtracklayer_1.51.1                      
 ##  [5] TxDb.Hsapiens.UCSC.hg38.knownGene_3.10.0
-##  [6] GenomicFeatures_1.40.0                  
-##  [7] GenomicRanges_1.40.0                    
-##  [8] GenomeInfoDb_1.24.2                     
-##  [9] EpiTxDb.Hs.hg38_0.99.3                  
-## [10] AnnotationHub_2.20.0                    
-## [11] BiocFileCache_1.12.0                    
-## [12] dbplyr_1.4.4                            
-## [13] EpiTxDb_1.1.0                           
-## [14] Modstrings_1.4.0                        
-## [15] Biostrings_2.56.0                       
-## [16] XVector_0.28.0                          
-## [17] AnnotationDbi_1.50.0                    
-## [18] IRanges_2.22.2                          
-## [19] S4Vectors_0.26.1                        
-## [20] Biobase_2.48.0                          
-## [21] BiocGenerics_0.34.0                     
-## [22] BiocStyle_2.16.0                        
+##  [6] GenomicFeatures_1.43.2                  
+##  [7] GenomicRanges_1.43.0                    
+##  [8] GenomeInfoDb_1.27.2                     
+##  [9] EpiTxDb.Hs.hg38_0.99.7                  
+## [10] AnnotationHub_2.23.0                    
+## [11] BiocFileCache_1.15.1                    
+## [12] dbplyr_2.0.0                            
+## [13] EpiTxDb_1.3.1                           
+## [14] Modstrings_1.7.0                        
+## [15] Biostrings_2.59.0                       
+## [16] XVector_0.31.0                          
+## [17] AnnotationDbi_1.53.0                    
+## [18] IRanges_2.25.4                          
+## [19] S4Vectors_0.29.6                        
+## [20] Biobase_2.51.0                          
+## [21] BiocGenerics_0.37.0                     
+## [22] BiocStyle_2.19.1                        
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] assertive.base_0.0-7          colorspace_1.4-1             
-##   [3] ellipsis_0.3.1                rprojroot_1.3-2              
-##   [5] fs_1.4.1                      farver_2.0.3                 
-##   [7] assertive.sets_0.0-3          bit64_0.9-7                  
-##   [9] interactiveDisplayBase_1.26.3 xml2_1.3.2                   
-##  [11] assertive.data.uk_0.0-2       codetools_0.2-16             
-##  [13] knitr_1.28                    assertive_0.3-5              
-##  [15] assertive.data.us_0.0-2       Rsamtools_2.4.0              
-##  [17] shiny_1.4.0.2                 BiocManager_1.30.10          
-##  [19] compiler_4.0.1                httr_1.4.1                   
-##  [21] backports_1.1.8               fastmap_1.0.1                
-##  [23] assertthat_0.2.1              Matrix_1.2-18                
-##  [25] tRNA_1.6.0                    later_1.1.0.1                
-##  [27] htmltools_0.5.0               prettyunits_1.1.1            
-##  [29] tools_4.0.1                   gtable_0.3.0                 
-##  [31] glue_1.4.1                    GenomeInfoDbData_1.2.3       
-##  [33] dplyr_1.0.0                   rappdirs_0.3.1               
-##  [35] Rcpp_1.0.4.6                  pkgdown_1.5.1                
-##  [37] vctrs_0.3.1                   assertive.files_0.0-2        
-##  [39] assertive.datetimes_0.0-2     assertive.models_0.0-2       
-##  [41] tRNAdbImport_1.6.0            xfun_0.14                    
-##  [43] stringr_1.4.0                 Structstrings_1.4.0          
-##  [45] mime_0.9                      lifecycle_0.2.0              
-##  [47] XML_3.99-0.3                  zlibbioc_1.34.0              
-##  [49] MASS_7.3-51.6                 scales_1.1.1                 
-##  [51] hms_0.5.3                     promises_1.1.1               
-##  [53] SummarizedExperiment_1.18.1   assertive.matrices_0.0-2     
-##  [55] assertive.strings_0.0-3       yaml_2.2.1                   
-##  [57] curl_4.3                      memoise_1.1.0                
-##  [59] biomaRt_2.44.1                stringi_1.4.6                
-##  [61] RSQLite_2.2.0                 BiocVersion_3.11.1           
-##  [63] desc_1.2.0                    BiocParallel_1.22.0          
-##  [65] rlang_0.4.6                   pkgconfig_2.0.3              
-##  [67] matrixStats_0.56.0            bitops_1.0-6                 
-##  [69] evaluate_0.14                 lattice_0.20-41              
-##  [71] assertive.data_0.0-3          purrr_0.3.4                  
-##  [73] labeling_0.3                  GenomicAlignments_1.24.0     
-##  [75] assertive.properties_0.0-4    bit_1.1-15.2                 
-##  [77] tidyselect_1.1.0              assertive.code_0.0-3         
-##  [79] magrittr_1.5                  bookdown_0.19                
-##  [81] R6_2.4.1                      generics_0.0.2               
-##  [83] DelayedArray_0.14.0           DBI_1.1.0                    
-##  [85] withr_2.2.0                   pillar_1.4.4                 
-##  [87] assertive.numbers_0.0-2       RCurl_1.98-1.2               
-##  [89] tibble_3.0.1                  crayon_1.3.4                 
-##  [91] assertive.types_0.0-3         rmarkdown_2.3                
-##  [93] progress_1.2.2                grid_4.0.1                   
-##  [95] blob_1.2.1                    digest_0.6.25                
-##  [97] xtable_1.8-4                  httpuv_1.5.4                 
-##  [99] openssl_1.4.1                 munsell_0.5.0                
-## [101] assertive.reflection_0.0-4    askpass_1.1</code></pre>
+##  [1] bitops_1.0-6                  matrixStats_0.57.0           
+##  [3] fs_1.5.0                      bit64_4.0.5                  
+##  [5] filelock_1.0.2                progress_1.2.2               
+##  [7] httr_1.4.2                    rprojroot_2.0.2              
+##  [9] tools_4.1.0                   R6_2.5.0                     
+## [11] DBI_1.1.0                     colorspace_2.0-0             
+## [13] withr_2.3.0                   tidyselect_1.1.0             
+## [15] prettyunits_1.1.1             bit_4.0.4                    
+## [17] curl_4.3                      compiler_4.1.0               
+## [19] textshaping_0.2.1             xml2_1.3.2                   
+## [21] desc_1.2.0                    DelayedArray_0.17.4          
+## [23] labeling_0.4.2                bookdown_0.21                
+## [25] scales_1.1.1                  tRNA_1.9.0                   
+## [27] askpass_1.1                   rappdirs_0.3.1               
+## [29] pkgdown_1.6.1                 systemfonts_0.3.2            
+## [31] stringr_1.4.0                 digest_0.6.27                
+## [33] Rsamtools_2.7.0               rmarkdown_2.5                
+## [35] pkgconfig_2.0.3               htmltools_0.5.0              
+## [37] MatrixGenerics_1.3.0          fastmap_1.0.1                
+## [39] rlang_0.4.9                   RSQLite_2.2.1                
+## [41] shiny_1.5.0                   farver_2.0.3                 
+## [43] BiocIO_1.1.2                  generics_0.1.0               
+## [45] BiocParallel_1.25.1           dplyr_1.0.2                  
+## [47] RCurl_1.98-1.2                magrittr_2.0.1               
+## [49] GenomeInfoDbData_1.2.4        Matrix_1.2-18                
+## [51] Rcpp_1.0.5                    munsell_0.5.0                
+## [53] lifecycle_0.2.0               stringi_1.5.3                
+## [55] yaml_2.2.1                    SummarizedExperiment_1.21.0  
+## [57] zlibbioc_1.37.0               grid_4.1.0                   
+## [59] blob_1.2.1                    promises_1.1.1               
+## [61] crayon_1.3.4                  lattice_0.20-41              
+## [63] tRNAdbImport_1.9.0            hms_0.5.3                    
+## [65] knitr_1.30                    pillar_1.4.7                 
+## [67] biomaRt_2.47.1                XML_3.99-0.5                 
+## [69] glue_1.4.2                    BiocVersion_3.13.1           
+## [71] evaluate_0.14                 Structstrings_1.7.1          
+## [73] BiocManager_1.30.10           httpuv_1.5.4                 
+## [75] vctrs_0.3.5                   gtable_0.3.0                 
+## [77] openssl_1.4.3                 purrr_0.3.4                  
+## [79] assertthat_0.2.1              xfun_0.19                    
+## [81] mime_0.9                      xtable_1.8-4                 
+## [83] later_1.1.0.1                 ragg_0.4.0                   
+## [85] tibble_3.0.4                  GenomicAlignments_1.27.1     
+## [87] memoise_1.1.0                 ellipsis_0.3.1               
+## [89] interactiveDisplayBase_1.29.0</code></pre>
 <p><a name="References"></a></p>
 </div>
 <div id="references" class="section level1 unnumbered">
@@ -447,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

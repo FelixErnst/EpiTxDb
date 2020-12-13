@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate integer sequences from position information of <code>Ranges</code> — positionSequence • EpiTxDb</title>
+<title>Generate integer sequences from position information of Ranges — positionSequence • EpiTxDb</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Generate integer sequences from position information of <code>Ranges</code> — positionSequence" />
+<meta property="og:title" content="Generate integer sequences from position information of Ranges — positionSequence" />
 <meta property="og:description" content="positionSequence generates sequences of integer values
 along the range information of x. This can be used for navigating
 specific positions on a range information." />
@@ -74,7 +74,7 @@ specific positions on a range information." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiTxDb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -136,16 +136,16 @@ along the range information of <code>x</code>. This can be used for navigating
 specific positions on a range information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>positionSequence</span>(<span class='no'>x</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>positionSequence</span><span class='op'>(</span><span class='va'>x</span>, order <span class='op'>=</span> <span class='cn'>FALSE</span>, decreasing <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># S4 method for Ranges</span>
-<span class='fu'>positionSequence</span>(<span class='no'>x</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>positionSequence</span><span class='op'>(</span><span class='va'>x</span>, order <span class='op'>=</span> <span class='cn'>FALSE</span>, decreasing <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># S4 method for RangesList</span>
-<span class='fu'>positionSequence</span>(<span class='no'>x</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>positionSequence</span><span class='op'>(</span><span class='va'>x</span>, order <span class='op'>=</span> <span class='cn'>FALSE</span>, decreasing <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># S4 method for Ranges</span>
-<span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>x</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,13 +179,16 @@ FALSE</code>)</p></td>
   <code><a href='https://rdrr.io/pkg/GenomicRanges/man/GRangesList-class.html'>GRangesList</a></code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>GenomicRanges</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://bioconductor.org/packages/GenomicRanges'>GenomicRanges</a></span><span class='op'>)</span>
 <span class='co'># Returns an integer vector</span>
-<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html'>GRanges</a></span>(<span class='st'>"chr1:1-5:+"</span>)
-<span class='fu'>positionSequence</span>(<span class='no'>gr</span>)</div><div class='output co'>#&gt; [1] 1 2 3 4 5</div><div class='input'><span class='no'>gr2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html'>GRanges</a></span>(<span class='st'>"chr1:1-5:-"</span>)
-<span class='fu'>positionSequence</span>(<span class='no'>gr</span>)</div><div class='output co'>#&gt; [1] 1 2 3 4 5</div><div class='input'><span class='co'># returns an IntegerList</span>
-<span class='no'>grl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/GenomicRanges/man/GRangesList-class.html'>GRangesList</a></span>(<span class='st'>"1"</span> <span class='kw'>=</span> <span class='no'>gr</span>,<span class='st'>"2"</span> <span class='kw'>=</span> <span class='no'>gr</span>,<span class='st'>"3"</span> <span class='kw'>=</span> <span class='no'>gr2</span>) <span class='co'># must be named</span>
-<span class='fu'>positionSequence</span>(<span class='no'>grl</span>)</div><div class='output co'>#&gt; IntegerList of length 3
+<span class='va'>gr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html'>GRanges</a></span><span class='op'>(</span><span class='st'>"chr1:1-5:+"</span><span class='op'>)</span>
+<span class='fu'>positionSequence</span><span class='op'>(</span><span class='va'>gr</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1 2 3 4 5</div><div class='input'><span class='va'>gr2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html'>GRanges</a></span><span class='op'>(</span><span class='st'>"chr1:1-5:-"</span><span class='op'>)</span>
+<span class='fu'>positionSequence</span><span class='op'>(</span><span class='va'>gr</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1 2 3 4 5</div><div class='input'><span class='co'># returns an IntegerList</span>
+<span class='va'>grl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/GenomicRanges/man/GRangesList-class.html'>GRangesList</a></span><span class='op'>(</span><span class='st'>"1"</span> <span class='op'>=</span> <span class='va'>gr</span>,<span class='st'>"2"</span> <span class='op'>=</span> <span class='va'>gr</span>,<span class='st'>"3"</span> <span class='op'>=</span> <span class='va'>gr2</span><span class='op'>)</span> <span class='co'># must be named</span>
+<span class='fu'>positionSequence</span><span class='op'>(</span><span class='va'>grl</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; IntegerList of length 3
 #&gt; [["1"]] 1 2 3 4 5
 #&gt; [["2"]] 1 2 3 4 5
 #&gt; [["3"]] 5 4 3 2 1</div></pre>
@@ -204,7 +207,7 @@ FALSE</code>)</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

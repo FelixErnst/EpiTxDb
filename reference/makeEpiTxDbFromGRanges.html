@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a <code>EpiTxDb</code> object from a <code>GRanges</code> object — makeEpiTxDbFromGRanges • EpiTxDb</title>
+<title>Create a EpiTxDb object from a GRanges object — makeEpiTxDbFromGRanges • EpiTxDb</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Create a <code>EpiTxDb</code> object from a <code>GRanges</code> object — makeEpiTxDbFromGRanges" />
+<meta property="og:title" content="Create a EpiTxDb object from a GRanges object — makeEpiTxDbFromGRanges" />
 <meta property="og:description" content="makeEpiTxDbFromGRanges extracts informations from a
 GRanges object. The following
 metadata columns can be used:
@@ -82,7 +82,7 @@ ref_type and ref
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiTxDb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -152,7 +152,7 @@ The first three are mandatory, whereas <code>tx_ensembl</code> is optional.</p><
 </ul><p>... and passed on the <code><a href='makeEpiTxDb.html'>makeEpiTxDb</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>makeEpiTxDbFromGRanges</span>(<span class='no'>gr</span>, <span class='kw'>metadata</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>reassign.ids</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>makeEpiTxDbFromGRanges</span><span class='op'>(</span><span class='va'>gr</span>, metadata <span class='op'>=</span> <span class='cn'>NULL</span>, reassign.ids <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,13 +181,15 @@ of metadata. (default: <code>metadata = NULL</code>)</p></td>
     <p>a <code>EpiTxDb</code> object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>GenomicRanges</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: GenomeInfoDb</span></div><div class='input'><span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html'>GRanges</a></span>(<span class='kw'>seqnames</span> <span class='kw'>=</span> <span class='st'>"test"</span>,
-              <span class='kw'>ranges</span> <span class='kw'>=</span> <span class='kw pkg'>IRanges</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/IRanges/man/IRanges-constructor.html'>IRanges</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>),
-              <span class='kw'>strand</span> <span class='kw'>=</span> <span class='st'>"+"</span>,
-              <span class='fu'>DataFrame</span>(<span class='kw'>mod_id</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-                        <span class='kw'>mod_type</span> <span class='kw'>=</span> <span class='st'>"Am"</span>,
-                        <span class='kw'>mod_name</span> <span class='kw'>=</span> <span class='st'>"Am_1"</span>))
-<span class='no'>etdb</span> <span class='kw'>&lt;-</span> <span class='fu'>makeEpiTxDbFromGRanges</span>(<span class='no'>gr</span>)</div><div class='output co'>#&gt; <span class='message'>Creating EpiTxDb object ... </span></div><div class='output co'>#&gt; <span class='message'>done</span></div></pre>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://bioconductor.org/packages/GenomicRanges'>GenomicRanges</a></span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: GenomeInfoDb</span></div><div class='input'><span class='va'>gr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html'>GRanges</a></span><span class='op'>(</span>seqnames <span class='op'>=</span> <span class='st'>"test"</span>,
+              ranges <span class='op'>=</span> <span class='fu'>IRanges</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/IRanges/man/IRanges-constructor.html'>IRanges</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,
+              strand <span class='op'>=</span> <span class='st'>"+"</span>,
+              <span class='fu'>DataFrame</span><span class='op'>(</span>mod_id <span class='op'>=</span> <span class='fl'>1L</span>,
+                        mod_type <span class='op'>=</span> <span class='st'>"Am"</span>,
+                        mod_name <span class='op'>=</span> <span class='st'>"Am_1"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>etdb</span> <span class='op'>&lt;-</span> <span class='fu'>makeEpiTxDbFromGRanges</span><span class='op'>(</span><span class='va'>gr</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Creating EpiTxDb object ... </span></div><div class='output co'>#&gt; <span class='message'>done</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -203,7 +205,7 @@ of metadata. (default: <code>metadata = NULL</code>)</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiTxDb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -79,13 +79,14 @@
 
       
 
-      </header><script src="EpiTxDb-creation_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="EpiTxDb-creation_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="EpiTxDb-creation_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="EpiTxDb-creation_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>EpiTxDb: creating an EpiTxDb object</h1>
                         <h4 class="author">Felix G.M. Ernst</h4>
             
-            <h4 class="date">2020-06-20</h4>
+            <h4 class="date">2020-12-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/FelixErnst/EpiTxDb/blob/master/vignettes/EpiTxDb-creation.Rmd"><code>vignettes/EpiTxDb-creation.Rmd</code></a></small>
       <div class="hidden name"><code>EpiTxDb-creation.Rmd</code></div>
@@ -111,44 +112,48 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>To create an <code>EpiTxDb</code> object a number of different functions are available. The most univeral functions are <code>makeEpiTxDb</code> and <code>makeEpiTxDbFromGRanges</code>. <code>makeEpiTxDb</code> uses four <code>data.frame</code>s as input, whereas <code>makeEpiTxDbFromGRanges</code> is a wrapper for information available as a <code>GRanges</code> object.</p>
 <p>The other functions are <code>makeEpiTxDbFromRMBase</code> and <code>makeEpiTxDbFromtRNAdb</code>, which are aimed to make data available from the RMBase v2.0 database <a href="#References"><span class="citation">(Xuan et al. 2017; Sun et al. 2015)</span></a> or the tRNAdb <a href="#References"><span class="citation">(Jühling et al. 2009; Sprinzl and Vassilenko 2005)</span></a>. However, before creating your <code>EpiTxDb</code> objects, have a look at the already available resources for <code>H. sapiens</code>, <code>M. musculus</code> and <code>S. cerevisiae.</code></p>
 <p>Additional metadata can be provided as separate <code>data.frame</code> for all functions. The <code>data.frame</code> must have two columns <code>name</code> and <code>value</code>.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">GenomicRanges</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EpiTxDb</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/GenomicRanges">GenomicRanges</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FelixErnst/EpiTxDb">EpiTxDb</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="makeepitxdb-and-makeepitxdbfromgranges" class="section level1">
 <h1 class="hasAnchor">
 <a href="#makeepitxdb-and-makeepitxdbfromgranges" class="anchor"></a><code>makeEpiTxDb</code> and <code>makeEpiTxDbFromGRanges</code>
 </h1>
 <p>The creation of an etdb object is quite easy starting with a <code>GRanges</code> object.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">gr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html">GRanges</a></span>(<span class="kw">seqnames</span> <span class="kw">=</span> <span class="st">"test"</span>,
-              <span class="kw">ranges</span> <span class="kw">=</span> <span class="kw pkg">IRanges</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/IRanges-constructor.html">IRanges</a></span>(<span class="fl">1</span>,<span class="fl">1</span>),
-              <span class="kw">strand</span> <span class="kw">=</span> <span class="st">"+"</span>,
-              <span class="fu">DataFrame</span>(<span class="kw">mod_id</span> <span class="kw">=</span> <span class="fl">1L</span>,
-                        <span class="kw">mod_type</span> <span class="kw">=</span> <span class="st">"Am"</span>,
-                        <span class="kw">mod_name</span> <span class="kw">=</span> <span class="st">"Am_1"</span>))
-<span class="no">etdb</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/makeEpiTxDbFromGRanges.html">makeEpiTxDbFromGRanges</a></span>(<span class="no">gr</span>, <span class="kw">metadata</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">name</span> <span class="kw">=</span> <span class="st">"test"</span>,
-                                                         <span class="kw">value</span> <span class="kw">=</span> <span class="st">"Yes"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html">GRanges</a></span><span class="op">(</span>seqnames <span class="op">=</span> <span class="st">"test"</span>,
+              ranges <span class="op">=</span> <span class="fu">IRanges</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/IRanges-constructor.html">IRanges</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,
+              strand <span class="op">=</span> <span class="st">"+"</span>,
+              <span class="fu">DataFrame</span><span class="op">(</span>mod_id <span class="op">=</span> <span class="fl">1L</span>,
+                        mod_type <span class="op">=</span> <span class="st">"Am"</span>,
+                        mod_name <span class="op">=</span> <span class="st">"Am_1"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeEpiTxDbFromGRanges.html">makeEpiTxDbFromGRanges</a></span><span class="op">(</span><span class="va">gr</span>, metadata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"test"</span>,
+                                                         value <span class="op">=</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## Creating EpiTxDb object ... done</code></pre>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">etdb</span></pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">etdb</span></code></pre></div>
 <pre><code>## EpiTxDb object:
 ## # Db type: EpiTxDb
 ## # Supporting package: EpiTxDb
 ## # test: Yes
 ## # Nb of modifications: 1
 ## # Db created by: EpiTxDb package from Bioconductor
-## # Creation time: 2020-06-20 11:12:27 +0000 (Sat, 20 Jun 2020)
-## # EpiTxDb version at creation time: 1.1.0
-## # RSQLite version at creation time: 2.2.0
+## # Creation time: 2020-12-13 12:51:36 +0000 (Sun, 13 Dec 2020)
+## # EpiTxDb version at creation time: 1.3.1
+## # RSQLite version at creation time: 2.2.1
 ## # DBSCHEMAVERSION: 1.0</code></pre>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu">metadata</span>(<span class="no">etdb</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">metadata</span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
 <pre><code>##                               name                                        value
 ## 1                          Db type                                      EpiTxDb
 ## 2               Supporting package                                      EpiTxDb
 ## 3                             test                                          Yes
 ## 4              Nb of modifications                                            1
 ## 5                    Db created by            EpiTxDb package from Bioconductor
-## 6                    Creation time 2020-06-20 11:12:27 +0000 (Sat, 20 Jun 2020)
-## 7 EpiTxDb version at creation time                                        1.1.0
-## 8 RSQLite version at creation time                                        2.2.0
+## 6                    Creation time 2020-12-13 12:51:36 +0000 (Sun, 13 Dec 2020)
+## 7 EpiTxDb version at creation time                                        1.3.1
+## 8 RSQLite version at creation time                                        2.2.1
 ## 9                  DBSCHEMAVERSION                                          1.0</code></pre>
 <p>Additional data can be provided via the metadata columns of the <code>GRanges</code> object. For supported columns have a look at <code><a href="../reference/makeEpiTxDb.html">?makeEpiTxDb</a></code> or <code><a href="../reference/makeEpiTxDbFromGRanges.html">?makeEpiTxDbFromGRanges</a></code>.</p>
 </div>
@@ -158,19 +163,21 @@ document.addEventListener("DOMContentLoaded", function() {
 </h1>
 <p>The information of the tRNAdb can be accessed via the <code>tRNAdbImport</code> package using the RNA database. As a result a <code>ModRNAStringSet</code> object is returned from which the modifications can be extracted using <code>separate()</code>.</p>
 <p>The only input require is a valid organism name returned by <code><a href="../reference/makeEpiTxDbFromtRNAdb.html">listAvailableOrganismsFromtRNAdb()</a></code>.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">etdb</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/makeEpiTxDbFromtRNAdb.html">makeEpiTxDbFromtRNAdb</a></span>(<span class="st">"Saccharomyces cerevisiae"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeEpiTxDbFromtRNAdb.html">makeEpiTxDbFromtRNAdb</a></span><span class="op">(</span><span class="st">"Saccharomyces cerevisiae"</span><span class="op">)</span></code></pre></div>
 <pre><code>## Loading data from tRNAdb ...</code></pre>
 <pre><code>## Assembling data ...</code></pre>
 <pre><code>## Creating EpiTxDb object ... done</code></pre>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">etdb</span></pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">etdb</span></code></pre></div>
 <pre><code>## EpiTxDb object:
 ## # Db type: EpiTxDb
 ## # Supporting package: EpiTxDb
 ## # Nb of modifications: 557
 ## # Db created by: EpiTxDb package from Bioconductor
-## # Creation time: 2020-06-20 11:13:07 +0000 (Sat, 20 Jun 2020)
-## # EpiTxDb version at creation time: 1.1.0
-## # RSQLite version at creation time: 2.2.0
+## # Creation time: 2020-12-13 12:52:04 +0000 (Sun, 13 Dec 2020)
+## # EpiTxDb version at creation time: 1.3.1
+## # RSQLite version at creation time: 2.2.1
 ## # DBSCHEMAVERSION: 1.0</code></pre>
 <p>For additional information have a look at <code><a href="../reference/makeEpiTxDbFromtRNAdb.html">?makeEpiTxDbFromtRNAdb</a></code>. The result returned from the tRNAdb is also available as <code>GRanges</code> object, if <code><a href="../reference/makeEpiTxDbFromtRNAdb.html">gettRNAdbDataAsGRanges()</a></code> is used.</p>
 </div>
@@ -179,88 +186,84 @@ document.addEventListener("DOMContentLoaded", function() {
 <a href="#makeepitxdbfromrmbase" class="anchor"></a><code>makeEpiTxDbFromRMBase</code>
 </h1>
 <p>Analogous to the example above <code><a href="../reference/makeEpiTxDbFromRMBase.html">makeEpiTxDbFromRMBase()</a></code> will download the data from the RMBase v2.0. Three inputs are required, <code>organism</code>, <code>genome</code> and <code>modtype</code>, which have to valid bia the functions <code><a href="../reference/makeEpiTxDbFromRMBase.html">listAvailableOrganismsFromRMBase()</a></code>, <code>.listAvailableGenomesFromRMBase()</code> and <code>listAvailableModFromRMBase</code>.</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">etdb</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/makeEpiTxDbFromRMBase.html">makeEpiTxDbFromRMBase</a></span>(<span class="kw">organism</span> <span class="kw">=</span> <span class="st">"Saccharomyces cerevisiae"</span>,
-                              <span class="kw">genome</span> <span class="kw">=</span> <span class="st">"sacCer3"</span>,
-                              <span class="kw">modtype</span> <span class="kw">=</span> <span class="st">"m1A"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeEpiTxDbFromRMBase.html">makeEpiTxDbFromRMBase</a></span><span class="op">(</span>organism <span class="op">=</span> <span class="st">"Saccharomyces cerevisiae"</span>,
+                              genome <span class="op">=</span> <span class="st">"sacCer3"</span>,
+                              modtype <span class="op">=</span> <span class="st">"m1A"</span><span class="op">)</span></code></pre></div>
 <p>Internally, the files are cached using the <code>BiocFileCache</code> package and passed to <code><a href="../reference/makeEpiTxDbFromRMBase.html">makeEpiTxDbFromRMBaseFiles()</a></code>, which can also be used with locally stored files. The resuls for creating the <code>EpiTxDb</code> class are processed from these files via the <code><a href="../reference/makeEpiTxDbFromRMBase.html">getRMBaseDataAsGRanges()</a></code> function.</p>
 </div>
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session info</h1>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()</pre></body></html></div>
-<pre><code>## R version 4.0.1 (2020-06-06)
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## R Under development (unstable) (2020-11-02 r79396)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 18.04.4 LTS
+## Running under: Ubuntu 20.04.1 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so
+## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
 ## 
 ## locale:
-##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
-##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
-##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
 ## [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] EpiTxDb_1.1.0        Modstrings_1.4.0     Biostrings_2.56.0   
-##  [4] XVector_0.28.0       AnnotationDbi_1.50.0 Biobase_2.48.0      
-##  [7] GenomicRanges_1.40.0 GenomeInfoDb_1.24.2  IRanges_2.22.2      
-## [10] S4Vectors_0.26.1     BiocGenerics_0.34.0  BiocStyle_2.16.0    
+##  [1] EpiTxDb_1.3.1        Modstrings_1.7.0     Biostrings_2.59.0   
+##  [4] XVector_0.31.0       AnnotationDbi_1.53.0 Biobase_2.51.0      
+##  [7] GenomicRanges_1.43.0 GenomeInfoDb_1.27.2  IRanges_2.25.4      
+## [10] S4Vectors_0.29.6     BiocGenerics_0.37.0  BiocStyle_2.19.1    
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] bitops_1.0-6                matrixStats_0.56.0         
-##  [3] fs_1.4.1                    assertive.models_0.0-2     
-##  [5] bit64_0.9-7                 progress_1.2.2             
-##  [7] httr_1.4.1                  rprojroot_1.3-2            
-##  [9] assertive.datetimes_0.0-2   tools_4.0.1                
-## [11] backports_1.1.8             R6_2.4.1                   
-## [13] colorspace_1.4-1            DBI_1.1.0                  
-## [15] assertive.data_0.0-3        assertive.reflection_0.0-4 
-## [17] tidyselect_1.1.0            prettyunits_1.1.1          
-## [19] bit_1.1-15.2                curl_4.3                   
-## [21] compiler_4.0.1              assertive.properties_0.0-4 
-## [23] xml2_1.3.2                  desc_1.2.0                 
-## [25] DelayedArray_0.14.0         rtracklayer_1.48.0         
-## [27] assertive.files_0.0-2       bookdown_0.19              
-## [29] scales_1.1.1                tRNA_1.6.0                 
-## [31] askpass_1.1                 rappdirs_0.3.1             
-## [33] pkgdown_1.5.1               stringr_1.4.0              
-## [35] digest_0.6.25               Rsamtools_2.4.0            
-## [37] rmarkdown_2.3               assertive.numbers_0.0-2    
-## [39] pkgconfig_2.0.3             htmltools_0.5.0            
-## [41] dbplyr_1.4.4                rlang_0.4.6                
-## [43] RSQLite_2.2.0               assertive_0.3-5            
-## [45] generics_0.0.2              BiocParallel_1.22.0        
-## [47] dplyr_1.0.0                 RCurl_1.98-1.2             
-## [49] magrittr_1.5                GenomeInfoDbData_1.2.3     
-## [51] Matrix_1.2-18               munsell_0.5.0              
-## [53] Rcpp_1.0.4.6                lifecycle_0.2.0            
-## [55] stringi_1.4.6               assertive.base_0.0-7       
-## [57] yaml_2.2.1                  MASS_7.3-51.6              
-## [59] SummarizedExperiment_1.18.1 zlibbioc_1.34.0            
-## [61] BiocFileCache_1.12.0        grid_4.0.1                 
-## [63] blob_1.2.1                  crayon_1.3.4               
-## [65] lattice_0.20-41             tRNAdbImport_1.6.0         
-## [67] assertive.code_0.0-3        GenomicFeatures_1.40.0     
-## [69] hms_0.5.3                   knitr_1.28                 
-## [71] pillar_1.4.4                assertive.sets_0.0-3       
-## [73] codetools_0.2-16            biomaRt_2.44.1             
-## [75] XML_3.99-0.3                glue_1.4.1                 
-## [77] Structstrings_1.4.0         evaluate_0.14              
-## [79] BiocManager_1.30.10         vctrs_0.3.1                
-## [81] gtable_0.3.0                openssl_1.4.1              
-## [83] purrr_0.3.4                 assertive.strings_0.0-3    
-## [85] assertthat_0.2.1            ggplot2_3.3.2              
-## [87] xfun_0.14                   assertive.types_0.0-3      
-## [89] assertive.data.uk_0.0-2     tibble_3.0.1               
-## [91] GenomicAlignments_1.24.0    memoise_1.1.0              
-## [93] assertive.matrices_0.0-2    ellipsis_0.3.1             
-## [95] assertive.data.us_0.0-2</code></pre>
+##  [1] MatrixGenerics_1.3.0        httr_1.4.2                 
+##  [3] bit64_4.0.5                 assertthat_0.2.1           
+##  [5] askpass_1.1                 BiocManager_1.30.10        
+##  [7] BiocFileCache_1.15.1        blob_1.2.1                 
+##  [9] GenomeInfoDbData_1.2.4      Rsamtools_2.7.0            
+## [11] yaml_2.2.1                  progress_1.2.2             
+## [13] lattice_0.20-41             pillar_1.4.7               
+## [15] RSQLite_2.2.1               glue_1.4.2                 
+## [17] digest_0.6.27               Structstrings_1.7.1        
+## [19] colorspace_2.0-0            tRNA_1.9.0                 
+## [21] Matrix_1.2-18               htmltools_0.5.0            
+## [23] XML_3.99-0.5                pkgconfig_2.0.3            
+## [25] biomaRt_2.47.1              bookdown_0.21              
+## [27] zlibbioc_1.37.0             purrr_0.3.4                
+## [29] scales_1.1.1                BiocParallel_1.25.1        
+## [31] tibble_3.0.4                openssl_1.4.3              
+## [33] ggplot2_3.3.2               generics_0.1.0             
+## [35] ellipsis_0.3.1              SummarizedExperiment_1.21.0
+## [37] GenomicFeatures_1.43.2      magrittr_2.0.1             
+## [39] crayon_1.3.4                memoise_1.1.0              
+## [41] evaluate_0.14               fs_1.5.0                   
+## [43] xml2_1.3.2                  textshaping_0.2.1          
+## [45] tools_4.1.0                 prettyunits_1.1.1          
+## [47] hms_0.5.3                   matrixStats_0.57.0         
+## [49] BiocIO_1.1.2                lifecycle_0.2.0            
+## [51] stringr_1.4.0               munsell_0.5.0              
+## [53] tRNAdbImport_1.9.0          DelayedArray_0.17.4        
+## [55] compiler_4.1.0              pkgdown_1.6.1              
+## [57] systemfonts_0.3.2           rlang_0.4.9                
+## [59] grid_4.1.0                  RCurl_1.98-1.2             
+## [61] rappdirs_0.3.1              bitops_1.0-6               
+## [63] rmarkdown_2.5               gtable_0.3.0               
+## [65] DBI_1.1.0                   curl_4.3                   
+## [67] R6_2.5.0                    GenomicAlignments_1.27.1   
+## [69] knitr_1.30                  dplyr_1.0.2                
+## [71] rtracklayer_1.51.1          bit_4.0.4                  
+## [73] filelock_1.0.2              rprojroot_2.0.2            
+## [75] ragg_0.4.0                  desc_1.2.0                 
+## [77] stringi_1.5.3               Rcpp_1.0.5                 
+## [79] vctrs_0.3.5                 dbplyr_2.0.0               
+## [81] tidyselect_1.1.0            xfun_0.19</code></pre>
 <p><a name="References"></a></p>
 </div>
 <div id="references" class="section level1 unnumbered">
@@ -298,7 +301,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
