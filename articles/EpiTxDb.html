@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -65,7 +65,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/FelixErnst/EpiTxDb/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -79,14 +79,13 @@
 
       
 
-      </header><script src="EpiTxDb_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="EpiTxDb_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="EpiTxDb_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="EpiTxDb_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>EpiTxDb: Storing and accessing epitranscriptomic information using the AnnotationDbi interface</h1>
                         <h4 class="author">Felix G.M. Ernst</h4>
             
-            <h4 class="date">2020-12-13</h4>
+            <h4 class="date">2020-12-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/FelixErnst/EpiTxDb/blob/master/vignettes/EpiTxDb.Rmd"><code>vignettes/EpiTxDb.Rmd</code></a></small>
       <div class="hidden name"><code>EpiTxDb.Rmd</code></div>
@@ -132,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>As an example for the vignette the snoRNAdb data <a href="#References"><span class="citation">(Lestrade and Weber 2006)</span></a> from the <code>EpiTxDb.Hs.hg38</code> package will be used. The data is stored in the <code>AnnotationHub</code> and is downloaded and cached upon the first request.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html">EpiTxDb.Hs.hg38.snoRNAdb</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## using temporary cache /tmp/RtmpfDhDHA/BiocFileCache</code></pre>
+<pre><code>## using temporary cache /tmp/Rtmp4EGQXN/BiocFileCache</code></pre>
 <pre><code>## snapshotDate(): 2020-11-02</code></pre>
 <pre><code>## downloading 1 resources</code></pre>
 <pre><code>## retrieving 1 resource</code></pre>
@@ -362,19 +361,19 @@ document.addEventListener("DOMContentLoaded", function() {
 ##  [3] BSgenome_1.59.2                         
 ##  [4] rtracklayer_1.51.1                      
 ##  [5] TxDb.Hsapiens.UCSC.hg38.knownGene_3.10.0
-##  [6] GenomicFeatures_1.43.2                  
-##  [7] GenomicRanges_1.43.0                    
-##  [8] GenomeInfoDb_1.27.2                     
+##  [6] GenomicFeatures_1.43.3                  
+##  [7] GenomicRanges_1.43.1                    
+##  [8] GenomeInfoDb_1.27.3                     
 ##  [9] EpiTxDb.Hs.hg38_0.99.7                  
 ## [10] AnnotationHub_2.23.0                    
 ## [11] BiocFileCache_1.15.1                    
 ## [12] dbplyr_2.0.0                            
 ## [13] EpiTxDb_1.3.1                           
-## [14] Modstrings_1.7.0                        
-## [15] Biostrings_2.59.0                       
-## [16] XVector_0.31.0                          
+## [14] Modstrings_1.7.1                        
+## [15] Biostrings_2.59.1                       
+## [16] XVector_0.31.1                          
 ## [17] AnnotationDbi_1.53.0                    
-## [18] IRanges_2.25.4                          
+## [18] IRanges_2.25.5                          
 ## [19] S4Vectors_0.29.6                        
 ## [20] Biobase_2.51.0                          
 ## [21] BiocGenerics_0.37.0                     
@@ -391,13 +390,13 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [15] prettyunits_1.1.1             bit_4.0.4                    
 ## [17] curl_4.3                      compiler_4.1.0               
 ## [19] textshaping_0.2.1             xml2_1.3.2                   
-## [21] desc_1.2.0                    DelayedArray_0.17.4          
+## [21] desc_1.2.0                    DelayedArray_0.17.5          
 ## [23] labeling_0.4.2                bookdown_0.21                
 ## [25] scales_1.1.1                  tRNA_1.9.0                   
 ## [27] askpass_1.1                   rappdirs_0.3.1               
 ## [29] pkgdown_1.6.1                 systemfonts_0.3.2            
 ## [31] stringr_1.4.0                 digest_0.6.27                
-## [33] Rsamtools_2.7.0               rmarkdown_2.5                
+## [33] Rsamtools_2.7.0               rmarkdown_2.6                
 ## [35] pkgconfig_2.0.3               htmltools_0.5.0              
 ## [37] MatrixGenerics_1.3.0          fastmap_1.0.1                
 ## [39] rlang_0.4.9                   RSQLite_2.2.1                
@@ -408,7 +407,7 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [49] GenomeInfoDbData_1.2.4        Matrix_1.2-18                
 ## [51] Rcpp_1.0.5                    munsell_0.5.0                
 ## [53] lifecycle_0.2.0               stringi_1.5.3                
-## [55] yaml_2.2.1                    SummarizedExperiment_1.21.0  
+## [55] yaml_2.2.1                    SummarizedExperiment_1.21.1  
 ## [57] zlibbioc_1.37.0               grid_4.1.0                   
 ## [59] blob_1.2.1                    promises_1.1.1               
 ## [61] crayon_1.3.4                  lattice_0.20-41              
@@ -416,14 +415,14 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [65] knitr_1.30                    pillar_1.4.7                 
 ## [67] biomaRt_2.47.1                XML_3.99-0.5                 
 ## [69] glue_1.4.2                    BiocVersion_3.13.1           
-## [71] evaluate_0.14                 Structstrings_1.7.1          
+## [71] evaluate_0.14                 Structstrings_1.7.2          
 ## [73] BiocManager_1.30.10           httpuv_1.5.4                 
 ## [75] vctrs_0.3.5                   gtable_0.3.0                 
 ## [77] openssl_1.4.3                 purrr_0.3.4                  
 ## [79] assertthat_0.2.1              xfun_0.19                    
 ## [81] mime_0.9                      xtable_1.8-4                 
 ## [83] later_1.1.0.1                 ragg_0.4.0                   
-## [85] tibble_3.0.4                  GenomicAlignments_1.27.1     
+## [85] tibble_3.0.4                  GenomicAlignments_1.27.2     
 ## [87] memoise_1.1.0                 ellipsis_0.3.1               
 ## [89] interactiveDisplayBase_1.29.0</code></pre>
 <p><a name="References"></a></p>
