@@ -85,7 +85,7 @@
       <h1 data-toc-skip>EpiTxDb: Storing and accessing epitranscriptomic information using the AnnotationDbi interface</h1>
                         <h4 class="author">Felix G.M. Ernst</h4>
             
-            <h4 class="date">2020-12-15</h4>
+            <h4 class="date">2021-01-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/FelixErnst/EpiTxDb/blob/master/vignettes/EpiTxDb.Rmd"><code>vignettes/EpiTxDb.Rmd</code></a></small>
       <div class="hidden name"><code>EpiTxDb.Rmd</code></div>
@@ -131,8 +131,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>As an example for the vignette the snoRNAdb data <a href="#References"><span class="citation">(Lestrade and Weber 2006)</span></a> from the <code>EpiTxDb.Hs.hg38</code> package will be used. The data is stored in the <code>AnnotationHub</code> and is downloaded and cached upon the first request.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html">EpiTxDb.Hs.hg38.snoRNAdb</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## using temporary cache /tmp/Rtmpnfspsl/BiocFileCache</code></pre>
-<pre><code>## snapshotDate(): 2020-11-02</code></pre>
+<pre><code>## using temporary cache /tmp/RtmpDuN7ZR/BiocFileCache</code></pre>
+<pre><code>## snapshotDate(): 2021-01-04</code></pre>
 <pre><code>## downloading 1 resources</code></pre>
 <pre><code>## retrieving 1 resource</code></pre>
 <pre><code>## loading from cache</code></pre>
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="va">bs</span> <span class="op">&lt;-</span> <span class="va">BSgenome.Hsapiens.UCSC.hg38</span>
 
 <span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html">EpiTxDb.Hs.hg38.RMBase</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## snapshotDate(): 2020-11-02</code></pre>
+<pre><code>## snapshotDate(): 2021-01-04</code></pre>
 <pre><code>## downloading 1 resources</code></pre>
 <pre><code>## retrieving 1 resource</code></pre>
 <pre><code>## loading from cache</code></pre>
@@ -325,7 +325,7 @@ document.addEventListener("DOMContentLoaded", function() {
                       rel_pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/start.html">start</a></span><span class="op">(</span><span class="va">mod_rescale</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">rel_pos</span> <span class="op">&lt;-</span> <span class="va">rel_pos</span><span class="op">[</span><span class="va">rel_pos</span><span class="op">$</span><span class="va">rel_pos</span> <span class="op">&lt;</span> <span class="fl">1500</span> <span class="op">&amp;</span> <span class="va">rel_pos</span><span class="op">$</span><span class="va">rel_pos</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">500</span>,<span class="op">]</span></code></pre></div>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rel_pos</span><span class="op">[</span><span class="va">rel_pos</span><span class="op">$</span><span class="va">mod_type</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m6A"</span>,<span class="st">"m1A"</span>,<span class="st">"Y"</span><span class="op">)</span>,<span class="op">]</span>,
        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rel_pos</span>, colour <span class="op">=</span> <span class="va">mod_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <a href="#session-info" class="anchor"></a>Session info</h1>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## R Under development (unstable) (2020-11-02 r79396)
+<pre><code>## R Under development (unstable) (2021-01-07 r79806)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS
 ## 
@@ -356,10 +356,10 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] ggplot2_3.3.2                           
+##  [1] ggplot2_3.3.3                           
 ##  [2] BSgenome.Hsapiens.UCSC.hg38_1.4.3       
 ##  [3] BSgenome_1.59.2                         
-##  [4] rtracklayer_1.51.1                      
+##  [4] rtracklayer_1.51.3                      
 ##  [5] TxDb.Hsapiens.UCSC.hg38.knownGene_3.10.0
 ##  [6] GenomicFeatures_1.43.3                  
 ##  [7] GenomicRanges_1.43.1                    
@@ -370,10 +370,10 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [12] dbplyr_2.0.0                            
 ## [13] EpiTxDb_1.3.1                           
 ## [14] Modstrings_1.7.1                        
-## [15] Biostrings_2.59.1                       
+## [15] Biostrings_2.59.2                       
 ## [16] XVector_0.31.1                          
 ## [17] AnnotationDbi_1.53.0                    
-## [18] IRanges_2.25.5                          
+## [18] IRanges_2.25.6                          
 ## [19] S4Vectors_0.29.6                        
 ## [20] Biobase_2.51.0                          
 ## [21] BiocGenerics_0.37.0                     
@@ -390,7 +390,7 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [15] prettyunits_1.1.1             bit_4.0.4                    
 ## [17] curl_4.3                      compiler_4.1.0               
 ## [19] textshaping_0.2.1             xml2_1.3.2                   
-## [21] desc_1.2.0                    DelayedArray_0.17.5          
+## [21] desc_1.2.0                    DelayedArray_0.17.7          
 ## [23] labeling_0.4.2                bookdown_0.21                
 ## [25] scales_1.1.1                  tRNA_1.9.0                   
 ## [27] askpass_1.1                   rappdirs_0.3.1               
@@ -399,12 +399,12 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [33] Rsamtools_2.7.0               rmarkdown_2.6                
 ## [35] pkgconfig_2.0.3               htmltools_0.5.0              
 ## [37] MatrixGenerics_1.3.0          fastmap_1.0.1                
-## [39] rlang_0.4.9                   RSQLite_2.2.1                
+## [39] rlang_0.4.10                  RSQLite_2.2.2                
 ## [41] shiny_1.5.0                   farver_2.0.3                 
 ## [43] BiocIO_1.1.2                  generics_0.1.0               
-## [45] BiocParallel_1.25.1           dplyr_1.0.2                  
+## [45] BiocParallel_1.25.2           dplyr_1.0.2                  
 ## [47] RCurl_1.98-1.2                magrittr_2.0.1               
-## [49] GenomeInfoDbData_1.2.4        Matrix_1.2-18                
+## [49] GenomeInfoDbData_1.2.4        Matrix_1.3-2                 
 ## [51] Rcpp_1.0.5                    munsell_0.5.0                
 ## [53] lifecycle_0.2.0               stringi_1.5.3                
 ## [55] yaml_2.2.1                    SummarizedExperiment_1.21.1  
@@ -413,18 +413,19 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [61] crayon_1.3.4                  lattice_0.20-41              
 ## [63] tRNAdbImport_1.9.0            hms_0.5.3                    
 ## [65] knitr_1.30                    pillar_1.4.7                 
-## [67] biomaRt_2.47.1                XML_3.99-0.5                 
-## [69] glue_1.4.2                    BiocVersion_3.13.1           
-## [71] evaluate_0.14                 Structstrings_1.7.2          
-## [73] BiocManager_1.30.10           httpuv_1.5.4                 
-## [75] vctrs_0.3.5                   gtable_0.3.0                 
-## [77] openssl_1.4.3                 purrr_0.3.4                  
-## [79] assertthat_0.2.1              xfun_0.19                    
-## [81] mime_0.9                      xtable_1.8-4                 
-## [83] later_1.1.0.1                 ragg_0.4.0                   
-## [85] tibble_3.0.4                  GenomicAlignments_1.27.2     
-## [87] memoise_1.1.0                 ellipsis_0.3.1               
-## [89] interactiveDisplayBase_1.29.0</code></pre>
+## [67] rjson_0.2.20                  biomaRt_2.47.1               
+## [69] BiocVersion_3.13.1            XML_3.99-0.5                 
+## [71] glue_1.4.2                    evaluate_0.14                
+## [73] Structstrings_1.7.2           BiocManager_1.30.10          
+## [75] httpuv_1.5.4                  vctrs_0.3.6                  
+## [77] gtable_0.3.0                  openssl_1.4.3                
+## [79] purrr_0.3.4                   assertthat_0.2.1             
+## [81] xfun_0.20                     mime_0.9                     
+## [83] xtable_1.8-4                  restfulr_0.0.13              
+## [85] later_1.1.0.1                 ragg_0.4.0                   
+## [87] tibble_3.0.4                  GenomicAlignments_1.27.2     
+## [89] memoise_1.1.0                 interactiveDisplayBase_1.29.0
+## [91] ellipsis_0.3.1</code></pre>
 <p><a name="References"></a></p>
 </div>
 <div id="references" class="section level1 unnumbered">
