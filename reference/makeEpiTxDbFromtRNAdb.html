@@ -83,7 +83,7 @@ database = &quot;RNA&quot; and the three different values for origin." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiTxDb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
       </span>
     </div>
 
@@ -202,14 +202,14 @@ will be used to associate a tRNAdb result with a specific transcript.</p></td>
 Research, Volume 37 (suppl_1): D159–162. doi:10.1093/nar/gkn772.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># getting just the annotation data</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># getting just the annotation data</span>
 <span class='va'>etdb</span> <span class='op'>&lt;-</span> <span class='fu'>makeEpiTxDbFromtRNAdb</span><span class='op'>(</span><span class='st'>"Saccharomyces cerevisiae"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading data from tRNAdb ...</span></div><div class='output co'>#&gt; <span class='message'>Assembling data ...</span></div><div class='output co'>#&gt; <span class='message'>Creating EpiTxDb object ... </span></div><div class='output co'>#&gt; <span class='message'>done</span></div><div class='input'>
+
 <span class='co'># For associating the result with transcripts, provide and additional</span>
 <span class='co'># named DNAStringSet object. Matching will be done against each sequence</span>
 <span class='co'># allowing 5 mismatches and indels. The final result will be checked for</span>
 <span class='co'># validity regarding the identity of the modifications</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='va'>etdb</span> <span class='op'>&lt;-</span> <span class='fu'>makeEpiTxDbFromtRNAdb</span><span class='op'>(</span><span class='st'>"Saccharomyces cerevisiae"</span>,
                               <span class='va'>some_transcript_sequences</span><span class='op'>)</span>
 <span class='op'>}</span>
