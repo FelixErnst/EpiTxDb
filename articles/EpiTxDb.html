@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiTxDb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.3</span>
       </span>
     </div>
 
@@ -79,13 +79,13 @@
 
       
 
-      </header><script src="EpiTxDb_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="EpiTxDb_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>EpiTxDb: Storing and accessing epitranscriptomic information using the AnnotationDbi interface</h1>
                         <h4 class="author">Felix G.M. Ernst</h4>
             
-            <h4 class="date">2021-02-16</h4>
+            <h4 class="date">2021-04-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/FelixErnst/EpiTxDb/blob/master/vignettes/EpiTxDb.Rmd"><code>vignettes/EpiTxDb.Rmd</code></a></small>
       <div class="hidden name"><code>EpiTxDb.Rmd</code></div>
@@ -131,12 +131,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>As an example for the vignette the snoRNAdb data <a href="#References"><span class="citation">(Lestrade and Weber 2006)</span></a> from the <code>EpiTxDb.Hs.hg38</code> package will be used. The data is stored in the <code>AnnotationHub</code> and is downloaded and cached upon the first request.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html">EpiTxDb.Hs.hg38.snoRNAdb</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## using temporary cache /tmp/RtmpsANGz9/BiocFileCache</code></pre>
-<pre><code>## snapshotDate(): 2021-01-14</code></pre>
-<pre><code>## downloading 1 resources</code></pre>
-<pre><code>## retrieving 1 resource</code></pre>
+<pre><code>## snapshotDate(): 2021-04-15</code></pre>
 <pre><code>## loading from cache</code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">etdb</span></code></pre></div>
 <pre><code>## EpiTxDb object:
 ## # Db type: EpiTxDb
@@ -152,14 +149,14 @@ document.addEventListener("DOMContentLoaded", function() {
 ## # RSQLite version at creation time: 2.2.0
 ## # DBSCHEMAVERSION: 1.0</code></pre>
 <p>As expected for an <code>AnnotationDb</code> class the general accessors are available.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/select.html">keytypes</a></span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] "MODID"            "MODNAME"          "MODSTRAND"        "MODTYPE"         
 ##  [5] "REF"              "REFTYPE"          "RXENSEMBL"        "RXENSEMBLTRANS"  
 ##  [9] "RXENTREZID"       "RXGENENAME"       "SNID"             "SNNAME"          
 ## [13] "SPECENSEMBL"      "SPECENSEMBLTRANS" "SPECENTREZID"     "SPECGENENAME"    
 ## [17] "SPECTYPE"</code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/select.html">columns</a></span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] "MODEND"           "MODID"            "MODNAME"          "MODSTART"        
 ##  [5] "MODSTRAND"        "MODTYPE"          "REF"              "REFID"           
@@ -167,10 +164,10 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [13] "RXGENENAME"       "RXID"             "RXRANK"           "SNID"            
 ## [17] "SNNAME"           "SPECENSEMBL"      "SPECENSEMBLTRANS" "SPECENTREZID"    
 ## [21] "SPECGENENAME"     "SPECID"           "SPECTYPE"</code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/select.html">keys</a></span><span class="op">(</span><span class="va">etdb</span>, <span class="st">"MODID"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "1" "2" "3" "4" "5" "6"</code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/select.html">select</a></span><span class="op">(</span><span class="va">etdb</span>, keys <span class="op">=</span> <span class="st">"1"</span>,
        columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MODNAME"</span>,<span class="st">"MODTYPE"</span>,<span class="st">"MODSTART"</span>,<span class="st">"MODSTRAND"</span>,<span class="st">"SNNAME"</span>,
                    <span class="st">"RXGENENAME"</span>,<span class="st">"SPECTYPE"</span>,<span class="st">"SPECGENENAME"</span><span class="op">)</span>,
@@ -182,13 +179,13 @@ document.addEventListener("DOMContentLoaded", function() {
 ## 1      SNORD71</code></pre>
 <p>The columns with the prefix <code>RX</code> or <code>SPEC</code> reference the reaction enzyme and the location specifier. This can be the same information, but for ribosomal modifications from the snoRNAdb it is of course fibrillarin and a snoRNA.</p>
 <p>In addition the following accessor for metadata are available as well.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">species</span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "Homo sapiens"</code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">organism</span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "Homo sapiens"</code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">seqlevels</span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "NR_003285" "NR_003286" "NR_003287" "NR_004430" "NR_002716" "NR_003925"
 ## [7] "NR_002756" "NR_004394" "NR_029422"</code></pre>
@@ -197,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <h1 class="hasAnchor">
 <a href="#accessing-rna-modifications" class="anchor"></a>Accessing RNA modifications</h1>
 <p>The specialized accessors are <code><a href="../reference/modifications.html">modifications()</a></code> and <code><a href="../reference/modifications.html">modificationsBy()</a></code>. <code><a href="../reference/modifications.html">modifications()</a></code> allows for filtering results, whereas <code><a href="../reference/modifications.html">modificationsBy()</a></code> returns all the modifications in batches separated by certain information.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/modifications.html">modifications</a></span><span class="op">(</span><span class="va">etdb</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mod_id"</span>,<span class="st">"mod_type"</span>,<span class="st">"mod_name"</span>,
                                 <span class="st">"rx_genename"</span>,<span class="st">"spec_genename"</span>,
                                 <span class="st">"ref_type"</span>,<span class="st">"ref"</span><span class="op">)</span>,
@@ -215,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function() {
 ##   [3] dyskerin pseudouridi..         SNORA69            PMID        16381836
 ##   -------
 ##   seqinfo: 9 sequences from hg38 genome; no seqlengths</code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># split by sequence name, usually a transcipt identifier</span>
 <span class="fu"><a href="../reference/modifications.html">modificationsBy</a></span><span class="op">(</span><span class="va">etdb</span>, by <span class="op">=</span> <span class="st">"seqnames"</span><span class="op">)</span></code></pre></div>
 <pre><code>## GRangesList object of length 9:
@@ -232,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function() {
 ## 
 ## ...
 ## &lt;8 more elements&gt;</code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># split modification type</span>
 <span class="fu"><a href="../reference/modifications.html">modificationsBy</a></span><span class="op">(</span><span class="va">etdb</span>, by <span class="op">=</span> <span class="st">"modtype"</span><span class="op">)</span></code></pre></div>
 <pre><code>## GRangesList object of length 5:
@@ -257,42 +254,43 @@ document.addEventListener("DOMContentLoaded", function() {
 ## ...
 ## &lt;4 more elements&gt;</code></pre>
 </div>
-<div id="shifting-coordinates-from-genomic-to-transcritomic" class="section level1">
+<div id="shifting-coordinates-from-genomic-to-transcriptomic" class="section level1">
 <h1 class="hasAnchor">
-<a href="#shifting-coordinates-from-genomic-to-transcritomic" class="anchor"></a>Shifting coordinates from genomic to transcritomic</h1>
-<p>Since epitranscriptomic modifications by their nature refere to each individual it might be of interest to shift the coordinates transctipt coordinates keeping in mind that with transcript variants multiple options exist for each of the transcript maturation process.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<a href="#shifting-coordinates-from-genomic-to-transcriptomic" class="anchor"></a>Shifting coordinates from genomic to transcriptomic</h1>
+<p>Since epitranscriptomic modifications by their nature can have different meaning for each of the individual transcript variants. This also introduces conflicts for saving epitranscriptomics coordinates. In the example above the coordinates are given per transcript, because of the source data.</p>
+<p>However, not all sources report transcript coordinates. It might be of interest to shift the coordinates to transcript coordinates and at the same time taking care that with transcript variants multiple options exist for each of the transcript maturation process: From one genomic coordinate, multiple transcriptomic coordinates can be spawned.</p>
+<p>Whether this is biologically relevant or whether biological evidence does exist for each modification on each transcript cannot be guaranteed or differentiated technically depending on the methods used. This might change with the arrival of new techniques allowing for detection of modified nucleotides per individual transcript variant.</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">TxDb.Hsapiens.UCSC.hg38.knownGene</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">BSgenome.Hsapiens.UCSC.hg38</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">txdb</span> <span class="op">&lt;-</span> <span class="va">TxDb.Hsapiens.UCSC.hg38.knownGene</span>
 <span class="fu">seqlevels</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"chr1"</span>
 <span class="va">bs</span> <span class="op">&lt;-</span> <span class="va">BSgenome.Hsapiens.UCSC.hg38</span>
 
 <span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html">EpiTxDb.Hs.hg38.RMBase</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## snapshotDate(): 2021-01-14</code></pre>
-<pre><code>## downloading 1 resources</code></pre>
-<pre><code>## retrieving 1 resource</code></pre>
+<pre><code>## snapshotDate(): 2021-04-15</code></pre>
 <pre><code>## loading from cache</code></pre>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tx</span> <span class="op">&lt;-</span> <span class="fu">exonsBy</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span>
 <span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modifications.html">modifications</a></span><span class="op">(</span><span class="va">etdb</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>sn_name <span class="op">=</span> <span class="st">"chr1"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 47275</code></pre>
 <p>In the following example we will focus on shifting the coordinates to individual mature transcripts. However, keep in mind, that premature transcript might be of interest as well and this can be controlled via the <code>tx</code> arguments of <code><a href="../reference/shiftTranscriptToGenomic.html">shiftGenomicToTranscript()</a></code></p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_tx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/shiftTranscriptToGenomic.html">shiftGenomicToTranscript</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">tx</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning: Coordinates for 905 ranges of 'subject' not found:
 ## 'chr1:14662:-','chr1:14668:-','chr1:14766:-','chr1:139005:-','chr1:139020:-','chr1:139040:-','chr1:139127:-','chr1:629454:+','chr1:629456:+','chr1:629465:+'
 ## and more ...</code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 157694</code></pre>
 <p>Due to multiple matches for each transcript variant the number of modifications has increased.</p>
 <p>With the we can plot the relative positions of modifications by type on <code>chr1</code> transcripts.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_tx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span><span class="op">(</span><span class="va">mod_tx</span>,<span class="fu">seqnames</span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span><span class="op">)</span>
 <span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
 <span class="co"># Getting the corresponding 5'-UTR and 3'-UTR annotations</span>
 <span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu">fiveUTRsByTranscript</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span>
 <span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu">threeUTRsByTranscript</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span>
@@ -324,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="va">rel_pos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>mod_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu">mcols</span><span class="op">(</span><span class="va">mod_rescale</span>,level<span class="op">=</span><span class="st">"within"</span><span class="op">)</span><span class="op">[</span>,<span class="st">"mod_type"</span><span class="op">]</span><span class="op">)</span>,
                       rel_pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/start.html">start</a></span><span class="op">(</span><span class="va">mod_rescale</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">rel_pos</span> <span class="op">&lt;-</span> <span class="va">rel_pos</span><span class="op">[</span><span class="va">rel_pos</span><span class="op">$</span><span class="va">rel_pos</span> <span class="op">&lt;</span> <span class="fl">1500</span> <span class="op">&amp;</span> <span class="va">rel_pos</span><span class="op">$</span><span class="va">rel_pos</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">500</span>,<span class="op">]</span></code></pre></div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rel_pos</span><span class="op">[</span><span class="va">rel_pos</span><span class="op">$</span><span class="va">mod_type</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m6A"</span>,<span class="st">"m1A"</span>,<span class="st">"Y"</span><span class="op">)</span>,<span class="op">]</span>,
        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rel_pos</span>, colour <span class="op">=</span> <span class="va">mod_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
@@ -334,11 +332,11 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session info</h1>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## R Under development (unstable) (2021-02-11 r79990)
+<pre><code>## R Under development (unstable) (2021-04-15 r80175)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.1 LTS
+## Running under: Ubuntu 20.04.2 LTS
 ## 
 ## Matrix products: default
 ## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
@@ -359,75 +357,77 @@ document.addEventListener("DOMContentLoaded", function() {
 ##  [1] ggplot2_3.3.3                           
 ##  [2] BSgenome.Hsapiens.UCSC.hg38_1.4.3       
 ##  [3] BSgenome_1.59.2                         
-##  [4] rtracklayer_1.51.4                      
+##  [4] rtracklayer_1.51.5                      
 ##  [5] TxDb.Hsapiens.UCSC.hg38.knownGene_3.10.0
-##  [6] GenomicFeatures_1.43.3                  
-##  [7] GenomicRanges_1.43.3                    
-##  [8] GenomeInfoDb_1.27.6                     
+##  [6] GenomicFeatures_1.43.8                  
+##  [7] GenomicRanges_1.43.4                    
+##  [8] GenomeInfoDb_1.27.11                    
 ##  [9] EpiTxDb.Hs.hg38_0.99.7                  
-## [10] AnnotationHub_2.23.2                    
-## [11] BiocFileCache_1.15.1                    
-## [12] dbplyr_2.1.0                            
-## [13] EpiTxDb_1.3.2                           
+## [10] AnnotationHub_2.99.5                    
+## [11] BiocFileCache_1.99.6                    
+## [12] dbplyr_2.1.1                            
+## [13] EpiTxDb_1.3.3                           
 ## [14] Modstrings_1.7.1                        
 ## [15] Biostrings_2.59.2                       
 ## [16] XVector_0.31.1                          
 ## [17] AnnotationDbi_1.53.1                    
-## [18] IRanges_2.25.6                          
-## [19] S4Vectors_0.29.7                        
+## [18] IRanges_2.25.9                          
+## [19] S4Vectors_0.29.15                       
 ## [20] Biobase_2.51.0                          
-## [21] BiocGenerics_0.37.1                     
-## [22] BiocStyle_2.19.1                        
+## [21] BiocGenerics_0.37.2                     
+## [22] BiocStyle_2.19.2                        
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] colorspace_2.0-0              rjson_0.2.20                 
 ##  [3] ellipsis_0.3.1                rprojroot_2.0.2              
-##  [5] fs_1.5.0                      farver_2.0.3                 
+##  [5] fs_1.5.0                      farver_2.1.0                 
 ##  [7] bit64_4.0.5                   interactiveDisplayBase_1.29.0
-##  [9] xml2_1.3.2                    cachem_1.0.4                 
-## [11] knitr_1.31                    Rsamtools_2.7.1              
-## [13] png_0.1-7                     shiny_1.6.0                  
-## [15] BiocManager_1.30.10           compiler_4.1.0               
-## [17] httr_1.4.2                    assertthat_0.2.1             
-## [19] Matrix_1.3-2                  fastmap_1.1.0                
-## [21] tRNA_1.9.0                    later_1.1.0.1                
-## [23] htmltools_0.5.1.1             prettyunits_1.1.1            
-## [25] tools_4.1.0                   gtable_0.3.0                 
-## [27] glue_1.4.2                    GenomeInfoDbData_1.2.4       
-## [29] dplyr_1.0.4                   rappdirs_0.3.3               
-## [31] Rcpp_1.0.6                    pkgdown_1.6.1                
-## [33] vctrs_0.3.6                   tRNAdbImport_1.9.0           
-## [35] xfun_0.21                     stringr_1.4.0                
-## [37] Structstrings_1.7.2           mime_0.10                    
-## [39] lifecycle_1.0.0               restfulr_0.0.13              
-## [41] XML_3.99-0.5                  zlibbioc_1.37.0              
-## [43] scales_1.1.1                  ragg_1.1.0                   
-## [45] hms_1.0.0                     promises_1.2.0.1             
-## [47] MatrixGenerics_1.3.1          SummarizedExperiment_1.21.1  
-## [49] yaml_2.2.1                    curl_4.3                     
-## [51] memoise_2.0.0                 biomaRt_2.47.4               
-## [53] stringi_1.5.3                 RSQLite_2.2.3                
-## [55] highr_0.8                     BiocVersion_3.13.1           
-## [57] BiocIO_1.1.2                  desc_1.2.0                   
-## [59] filelock_1.0.2                BiocParallel_1.25.4          
-## [61] rlang_0.4.10                  pkgconfig_2.0.3              
-## [63] systemfonts_1.0.1             matrixStats_0.58.0           
-## [65] bitops_1.0-6                  evaluate_0.14                
-## [67] lattice_0.20-41               purrr_0.3.4                  
-## [69] labeling_0.4.2                GenomicAlignments_1.27.2     
-## [71] bit_4.0.4                     tidyselect_1.1.0             
-## [73] magrittr_2.0.1                bookdown_0.21                
-## [75] R6_2.5.0                      generics_0.1.0               
-## [77] DelayedArray_0.17.7           DBI_1.1.1                    
-## [79] pillar_1.4.7                  withr_2.4.1                  
-## [81] KEGGREST_1.31.1               RCurl_1.98-1.2               
-## [83] tibble_3.0.6                  crayon_1.4.1                 
-## [85] rmarkdown_2.6                 progress_1.2.2               
-## [87] grid_4.1.0                    blob_1.2.1                   
-## [89] digest_0.6.27                 xtable_1.8-4                 
-## [91] httpuv_1.5.5                  textshaping_0.3.0            
-## [93] openssl_1.4.3                 munsell_0.5.0                
-## [95] askpass_1.1</code></pre>
+##  [9] fansi_0.4.2                   xml2_1.3.2                   
+## [11] cachem_1.0.4                  knitr_1.32                   
+## [13] jsonlite_1.7.2                Rsamtools_2.7.2              
+## [15] png_0.1-7                     shiny_1.6.0                  
+## [17] BiocManager_1.30.12           compiler_4.1.0               
+## [19] httr_1.4.2                    assertthat_0.2.1             
+## [21] Matrix_1.3-2                  fastmap_1.1.0                
+## [23] tRNA_1.9.0                    later_1.1.0.1                
+## [25] htmltools_0.5.1.1             prettyunits_1.1.1            
+## [27] tools_4.1.0                   gtable_0.3.0                 
+## [29] glue_1.4.2                    GenomeInfoDbData_1.2.4       
+## [31] dplyr_1.0.5                   rappdirs_0.3.3               
+## [33] Rcpp_1.0.6                    jquerylib_0.1.3              
+## [35] pkgdown_1.6.1                 vctrs_0.3.7                  
+## [37] tRNAdbImport_1.9.0            xfun_0.22                    
+## [39] stringr_1.4.0                 Structstrings_1.7.2          
+## [41] mime_0.10                     lifecycle_1.0.0              
+## [43] restfulr_0.0.13               XML_3.99-0.6                 
+## [45] zlibbioc_1.37.0               scales_1.1.1                 
+## [47] ragg_1.1.2                    hms_1.0.0                    
+## [49] promises_1.2.0.1              MatrixGenerics_1.3.1         
+## [51] SummarizedExperiment_1.21.3   yaml_2.2.1                   
+## [53] curl_4.3                      memoise_2.0.0                
+## [55] sass_0.3.1                    biomaRt_2.47.7               
+## [57] stringi_1.5.3                 RSQLite_2.2.6                
+## [59] highr_0.9                     BiocVersion_3.13.1           
+## [61] BiocIO_1.1.2                  desc_1.3.0                   
+## [63] filelock_1.0.2                BiocParallel_1.25.5          
+## [65] rlang_0.4.10                  pkgconfig_2.0.3              
+## [67] systemfonts_1.0.1             matrixStats_0.58.0           
+## [69] bitops_1.0-6                  evaluate_0.14                
+## [71] lattice_0.20-41               purrr_0.3.4                  
+## [73] labeling_0.4.2                GenomicAlignments_1.27.2     
+## [75] bit_4.0.4                     tidyselect_1.1.0             
+## [77] magrittr_2.0.1                bookdown_0.21                
+## [79] R6_2.5.0                      generics_0.1.0               
+## [81] DelayedArray_0.17.10          DBI_1.1.1                    
+## [83] pillar_1.6.0                  withr_2.4.2                  
+## [85] KEGGREST_1.31.1               RCurl_1.98-1.3               
+## [87] tibble_3.1.1                  crayon_1.4.1                 
+## [89] utf8_1.2.1                    rmarkdown_2.7                
+## [91] progress_1.2.2                grid_4.1.0                   
+## [93] blob_1.2.1                    digest_0.6.27                
+## [95] xtable_1.8-4                  httpuv_1.5.5                 
+## [97] textshaping_0.3.3             munsell_0.5.0                
+## [99] bslib_0.2.4</code></pre>
 <p><a name="References"></a></p>
 </div>
 <div id="references" class="section level1 unnumbered">
