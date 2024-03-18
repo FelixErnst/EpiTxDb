@@ -24,6 +24,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -36,18 +38,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">EpiTxDb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/EpiTxDb.html">Get started</a>
 </li>
@@ -55,7 +51,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -69,7 +65,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/FelixErnst/EpiTxDb/">
+  <a href="https://github.com/FelixErnst/EpiTxDb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -87,9 +83,8 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="epitxdb-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#epitxdb-" class="anchor"></a>EpiTxDb <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/EpiTxDb/EpiTxDb.png" height="200" align="right">
+<div class="section level1">
+<div class="page-header"><h1 id="epitxdb-">EpiTxDb <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/EpiTxDb/EpiTxDb.png" height="200" align="right"><a class="anchor" aria-label="anchor" href="#epitxdb-"></a>
 </h1></div>
 <!-- badges: start -->
 
@@ -97,35 +92,35 @@
 <p>With the development of high throughput detection strategies for specific RNA modifications, such as miCLIP and Pseudo-Seq amongst other, a large number of modified positions have been identified and were summarized via the RMBase project (<a href="#Literature">Xuan et al. 2017, Sun et al. 2015</a>) project.</p>
 <p>To make these information avaialble within the Bioconductor universe <code>EpiTxDb</code> was developed, which facilitates the storage of epitranscriptomic information. More specifically, it can keep track of modification identity, position, the enzyme for introducing it on the RNA, a specifier which determines the position on the RNA to be modified and the literature references each modification is associated with.</p>
 </div>
-<div id="installation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h1>
+<div class="section level1">
+<h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h1>
 <p>The current version of the <code>EpiTxDb</code> package is available from Bioconductor.</p>
-<div id="github" class="section level2">
-<h2 class="hasAnchor">
-<a href="#github" class="anchor"></a>Github</h2>
-<pre><code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("FelixErnst/EpiTxDb")
-#
-library(EpiTxDb)</a></code></pre>
+<div class="section level2">
+<h2 id="github">Github<a class="anchor" aria-label="anchor" href="#github"></a>
+</h2>
+<pre><code><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"FelixErnst/EpiTxDb"</span><span class="op">)</span></span>
+<span><span class="co">#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FelixErnst/EpiTxDb" class="external-link">EpiTxDb</a></span><span class="op">)</span></span></code></pre>
 </div>
-<div id="bioconductor" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bioconductor" class="anchor"></a>Bioconductor</h2>
-<pre><code>if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-# The following initializes usage of Bioc devel
-BiocManager::install(version='devel')
-BiocManager::install("EpiTxDb")
-library(EpiTxDb)</code></pre>
+<div class="section level2">
+<h2 id="bioconductor">Bioconductor<a class="anchor" aria-label="anchor" href="#bioconductor"></a>
+</h2>
+<pre><code><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The following initializes usage of Bioc devel</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span>version<span class="op">=</span><span class="st">'devel'</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"EpiTxDb"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FelixErnst/EpiTxDb" class="external-link">EpiTxDb</a></span><span class="op">)</span></span></code></pre>
 </div>
 </div>
-<div id="literature" class="section level1">
-<h1 class="hasAnchor">
-<a href="#literature" class="anchor"></a>Literature</h1>
+<div class="section level1">
+<h1 id="literature">Literature<a class="anchor" aria-label="anchor" href="#literature"></a>
+</h1>
 <ul>
-<li><p>Jia-Jia Xuan, Wen-Ju Sun, Ke-Ren Zhou, Shun Liu, Peng-Hui Lin, Ling-Ling Zheng, Liang-Hu Qu, Jian-Hua Yang (2017): “RMBase v2.0: Deciphering the Map of RNA Modifications from Epitranscriptome Sequencing Data.” Nucleic Acids Research, Volume 46, Issue D1, 4 January 2018, Pages D327–D334. <a href="doi:%5B10.1093/nar/gkx934" class="uri">doi:[10.1093/nar/gkx934</a>](<a href="https://doi.org/10.1093/nar/gkx934" class="uri">https://doi.org/10.1093/nar/gkx934</a>)</p></li>
-<li><p>Wen-Ju Sun, Jun-Hao Li, Shun Liu, Jie Wu, Hui Zhou, Liang-Hu Qu, Jian-Hua Yang (2018): “RMBase: a resource for decoding the landscape of RNA modifications from high-throughput sequencing data”, Nucleic Acids Research, Volume 44, Issue D1, 4 January 2016, Pages D259–D265. <a href="doi:%5B10.1093/nar/gkv1036" class="uri">doi:[10.1093/nar/gkv1036</a>](<a href="https://doi.org/10.1093/nar/gkv1036" class="uri">https://doi.org/10.1093/nar/gkv1036</a>).</p></li>
+<li><p>Jia-Jia Xuan, Wen-Ju Sun, Ke-Ren Zhou, Shun Liu, Peng-Hui Lin, Ling-Ling Zheng, Liang-Hu Qu, Jian-Hua Yang (2017): “RMBase v2.0: Deciphering the Map of RNA Modifications from Epitranscriptome Sequencing Data.” Nucleic Acids Research, Volume 46, Issue D1, 4 January 2018, Pages D327–D334. <a href="doi:%5B10.1093/nar/gkx934" class="uri">doi:[10.1093/nar/gkx934</a>](<a href="https://doi.org/10.1093/nar/gkx934" class="external-link uri">https://doi.org/10.1093/nar/gkx934</a>)</p></li>
+<li><p>Wen-Ju Sun, Jun-Hao Li, Shun Liu, Jie Wu, Hui Zhou, Liang-Hu Qu, Jian-Hua Yang (2018): “RMBase: a resource for decoding the landscape of RNA modifications from high-throughput sequencing data”, Nucleic Acids Research, Volume 44, Issue D1, 4 January 2016, Pages D259–D265. <a href="doi:%5B10.1093/nar/gkv1036" class="uri">doi:[10.1093/nar/gkv1036</a>](<a href="https://doi.org/10.1093/nar/gkv1036" class="external-link uri">https://doi.org/10.1093/nar/gkv1036</a>).</p></li>
 </ul>
 </div>
 
@@ -133,54 +128,58 @@ library(EpiTxDb)</code></pre>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from BIOC at <br><a href="https://www.bioconductor.org/packages/EpiTxDb">https://​www.bioconductor.org/​packages/​EpiTxDb</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/FelixErnst/EpiTxDb/">https://​github.com/​FelixErnst/​EpiTxDb/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/FelixErnst/EpiTxDb/issues">https://​github.com/​FelixErnst/​EpiTxDb/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/Artistic-2.0">Artistic-2.0</a></li>
-</ul>
-</div>
-<div class="citation">
-<h2>Citation</h2>
-<ul class="list-unstyled">
-<li><a href="authors.html">Citing EpiTxDb</a></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Felix G.M. Ernst <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-5064-0928" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://www.bioconductor.org/packages/EpiTxDb" class="external-link">View on Bioconductor</a></li>
+<li><a href="https://github.com/FelixErnst/EpiTxDb/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/FelixErnst/EpiTxDb/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/FelixErnst/EpiTxDb/actions/"><img src="https://github.com/FelixErnst/EpiTxDb/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="http://bioconductor.org/checkResults/devel/bioc-LATEST/EpiTxDb/"><img src="https://bioconductor.org/shields/build/devel/bioc/EpiTxDb.svg" alt="BioC Build"></a></li>
-<li><a href="https://codecov.io/gh/FelixErnst/EpiTxDb"><img src="https://codecov.io/gh/FelixErnst/EpiTxDb/branch/master/graph/badge.svg" alt="codecov"></a></li>
-<li><a href="https://doi.org/doi:10.18129/B9.bioc.EpiTxDb"><img src="https://bioconductor.org/shields/years-in-bioc/EpiTxDb.svg" alt="BioC Years"></a></li>
+<li><a href="https://www.r-project.org/Licenses/Artistic-2.0" class="external-link">Artistic-2.0</a></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing EpiTxDb</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Felix G.M. Ernst <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-5064-0928" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/FelixErnst/EpiTxDb/actions/" class="external-link"><img src="https://github.com/FelixErnst/EpiTxDb/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="http://bioconductor.org/checkResults/devel/bioc-LATEST/EpiTxDb/" class="external-link"><img src="https://bioconductor.org/shields/build/devel/bioc/EpiTxDb.svg" alt="BioC Build"></a></li>
+<li><a href="https://codecov.io/gh/FelixErnst/EpiTxDb" class="external-link"><img src="https://codecov.io/gh/FelixErnst/EpiTxDb/branch/master/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://doi.org/doi:10.18129/B9.bioc.EpiTxDb" class="external-link"><img src="https://bioconductor.org/shields/years-in-bioc/EpiTxDb.svg" alt="BioC Years"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Felix G.M. Ernst.</p>
+  <p></p>
+<p>Developed by Felix G.M. Ernst.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -188,6 +187,8 @@ library(EpiTxDb)</code></pre>
 
   
 
+
+  
 
   </body>
 </html>

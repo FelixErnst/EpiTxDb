@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiTxDb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/EpiTxDb.html">Get started</a>
 </li>
@@ -50,7 +46,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -64,7 +60,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/FelixErnst/EpiTxDb/">
+  <a href="https://github.com/FelixErnst/EpiTxDb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -79,15 +75,17 @@
 
       
 
-      </header><script src="EpiTxDb_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>EpiTxDb: Storing and accessing epitranscriptomic information using the AnnotationDbi interface</h1>
-                        <h4 class="author">Felix G.M. Ernst</h4>
+      <h1 data-toc-skip>EpiTxDb: Storing and accessing epitranscriptomic
+information using the AnnotationDbi interface</h1>
+                        <h4 data-toc-skip class="author">Felix G.M.
+Ernst</h4>
             
-            <h4 class="date">2021-04-19</h4>
+            <h4 data-toc-skip class="date">2024-03-18</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/FelixErnst/EpiTxDb/blob/master/vignettes/EpiTxDb.Rmd"><code>vignettes/EpiTxDb.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/FelixErnst/EpiTxDb/blob/HEAD/vignettes/EpiTxDb.Rmd" class="external-link"><code>vignettes/EpiTxDb.Rmd</code></a></small>
       <div class="hidden name"><code>EpiTxDb.Rmd</code></div>
 
     </div>
@@ -105,343 +103,398 @@ document.addEventListener("DOMContentLoaded", function() {
     if (links[i].hostname != window.location.hostname)
       links[i].target = '_blank';
 });
-</script><div id="installation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h1>
+</script><div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
-
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"EpiTxDb"</span>,<span class="st">"EpiTxDb.Hs.hg38"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EpiTxDb"</span>,<span class="st">"EpiTxDb.Hs.hg38"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>The epitranscriptome includes all post-transcriptional modifications of the RNA and describes and additional layer of information encoded on RNA. Like the term epigenome it is not about a change in nucleotide sequences, but the addition of functional elements through modifications.</p>
-<p>With the development of high throughput detection strategies for specific RNA modifications, such as miCLIP and Pseudo-Seq amongst other, a large number of modified positions have been identified and were summarized via the RMBase project <a href="#References"><span class="citation">(Xuan et al. 2017; Sun et al. 2015)</span></a> project.</p>
-<p>To make these information avaialble within the Bioconductor universe <code>EpiTxDb</code> was developed, which facilitates the storage of epitranscriptomic information. More specifically, it can keep track of modification identity, position, the enzyme for introducing it on the RNA, a specifier which determines the position on the RNA to be modified and the literature references each modification is associated with.</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>The epitranscriptome includes all post-transcriptional modifications
+of the RNA and describes and additional layer of information encoded on
+RNA. Like the term epigenome it is not about a change in nucleotide
+sequences, but the addition of functional elements through
+modifications.</p>
+<p>With the development of high throughput detection strategies for
+specific RNA modifications, such as miCLIP and Pseudo-Seq amongst other,
+a large number of modified positions have been identified and were
+summarized via the RMBase project <a href="#References"><span class="citation">(Xuan et al. 2017; Sun et al. 2015)</span></a>
+project.</p>
+<p>To make these information avaialble within the Bioconductor universe
+<code>EpiTxDb</code> was developed, which facilitates the storage of
+epitranscriptomic information. More specifically, it can keep track of
+modification identity, position, the enzyme for introducing it on the
+RNA, a specifier which determines the position on the RNA to be modified
+and the literature references each modification is associated with.</p>
 </div>
-<div id="getting-started" class="section level1">
-<h1 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting started</h1>
+<div class="section level2">
+<h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FelixErnst/EpiTxDb">EpiTxDb</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FelixErnst/EpiTxDb.Hs.hg38">EpiTxDb.Hs.hg38</a></span><span class="op">)</span></code></pre></div>
-<p>The class <code>EpiTxDb</code> is the class for storing the epitranscriptomic data. It inherits the inner workings of <code>AnnotationDb</code> class from the <code>AnnotationDbi</code> package.</p>
-<p>As an example for the vignette the snoRNAdb data <a href="#References"><span class="citation">(Lestrade and Weber 2006)</span></a> from the <code>EpiTxDb.Hs.hg38</code> package will be used. The data is stored in the <code>AnnotationHub</code> and is downloaded and cached upon the first request.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FelixErnst/EpiTxDb" class="external-link">EpiTxDb</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FelixErnst/EpiTxDb.Hs.hg38" class="external-link">EpiTxDb.Hs.hg38</a></span><span class="op">)</span></span></code></pre></div>
+<p>The class <code>EpiTxDb</code> is the class for storing the
+epitranscriptomic data. It inherits the inner workings of
+<code>AnnotationDb</code> class from the <code>AnnotationDbi</code>
+package.</p>
+<p>As an example for the vignette the snoRNAdb data <a href="#References"><span class="citation">(Lestrade and Weber
+2006)</span></a> from the <code>EpiTxDb.Hs.hg38</code> package will be
+used. The data is stored in the <code>AnnotationHub</code> and is
+downloaded and cached upon the first request.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html">EpiTxDb.Hs.hg38.snoRNAdb</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## snapshotDate(): 2021-04-15</code></pre>
-<pre><code>## loading from cache</code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">etdb</span></code></pre></div>
-<pre><code>## EpiTxDb object:
-## # Db type: EpiTxDb
-## # Supporting package: EpiTxDb
-## # Data source: snoRNAdb
-## # Organism: Homo sapiens
-## # Genome: hg38
-## # Coordinates: per Transcript
-## # Nb of modifications: 235
-## # Db created by: EpiTxDb package from Bioconductor
-## # Creation time: 2020-02-26 10:34:30 +0100 (Wed, 26 Feb 2020)
-## # EpiTxDb version at creation time: 0.99.0
-## # RSQLite version at creation time: 2.2.0
-## # DBSCHEMAVERSION: 1.0</code></pre>
-<p>As expected for an <code>AnnotationDb</code> class the general accessors are available.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/select.html">keytypes</a></span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
-<pre><code>##  [1] "MODID"            "MODNAME"          "MODSTRAND"        "MODTYPE"         
-##  [5] "REF"              "REFTYPE"          "RXENSEMBL"        "RXENSEMBLTRANS"  
-##  [9] "RXENTREZID"       "RXGENENAME"       "SNID"             "SNNAME"          
-## [13] "SPECENSEMBL"      "SPECENSEMBLTRANS" "SPECENTREZID"     "SPECGENENAME"    
-## [17] "SPECTYPE"</code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/select.html">columns</a></span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
-<pre><code>##  [1] "MODEND"           "MODID"            "MODNAME"          "MODSTART"        
-##  [5] "MODSTRAND"        "MODTYPE"          "REF"              "REFID"           
-##  [9] "REFTYPE"          "RXENSEMBL"        "RXENSEMBLTRANS"   "RXENTREZID"      
-## [13] "RXGENENAME"       "RXID"             "RXRANK"           "SNID"            
-## [17] "SNNAME"           "SPECENSEMBL"      "SPECENSEMBLTRANS" "SPECENTREZID"    
-## [21] "SPECGENENAME"     "SPECID"           "SPECTYPE"</code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/select.html">keys</a></span><span class="op">(</span><span class="va">etdb</span>, <span class="st">"MODID"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "1" "2" "3" "4" "5" "6"</code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/select.html">select</a></span><span class="op">(</span><span class="va">etdb</span>, keys <span class="op">=</span> <span class="st">"1"</span>,
-       columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MODNAME"</span>,<span class="st">"MODTYPE"</span>,<span class="st">"MODSTART"</span>,<span class="st">"MODSTRAND"</span>,<span class="st">"SNNAME"</span>,
-                   <span class="st">"RXGENENAME"</span>,<span class="st">"SPECTYPE"</span>,<span class="st">"SPECGENENAME"</span><span class="op">)</span>,
-       keytype <span class="op">=</span> <span class="st">"MODID"</span><span class="op">)</span></code></pre></div>
-<pre><code>## 'select()' returned 1:1 mapping between keys and columns</code></pre>
-<pre><code>##   MODID MODNAME MODTYPE MODSTART MODSTRAND    SNNAME  RXGENENAME SPECTYPE
-## 1     1   Um_14      Um       14         + NR_003285 fibrillarin   snoRNA
-##   SPECGENENAME
-## 1      SNORD71</code></pre>
-<p>The columns with the prefix <code>RX</code> or <code>SPEC</code> reference the reaction enzyme and the location specifier. This can be the same information, but for ribosomal modifications from the snoRNAdb it is of course fibrillarin and a snoRNA.</p>
-<p>In addition the following accessor for metadata are available as well.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">species</span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "Homo sapiens"</code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">organism</span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "Homo sapiens"</code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">seqlevels</span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "NR_003285" "NR_003286" "NR_003287" "NR_004430" "NR_002716" "NR_003925"
-## [7] "NR_002756" "NR_004394" "NR_029422"</code></pre>
+<code class="sourceCode R"><span><span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html" class="external-link">EpiTxDb.Hs.hg38.snoRNAdb</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## loading from cache</span></span></code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">etdb</span></span></code></pre></div>
+<pre><code><span><span class="co">## EpiTxDb object:</span></span>
+<span><span class="co">## # Db type: EpiTxDb</span></span>
+<span><span class="co">## # Supporting package: EpiTxDb</span></span>
+<span><span class="co">## # Data source: snoRNAdb</span></span>
+<span><span class="co">## # Organism: Homo sapiens</span></span>
+<span><span class="co">## # Genome: hg38</span></span>
+<span><span class="co">## # Coordinates: per Transcript</span></span>
+<span><span class="co">## # Nb of modifications: 235</span></span>
+<span><span class="co">## # Db created by: EpiTxDb package from Bioconductor</span></span>
+<span><span class="co">## # Creation time: 2020-02-26 10:34:30 +0100 (Wed, 26 Feb 2020)</span></span>
+<span><span class="co">## # EpiTxDb version at creation time: 0.99.0</span></span>
+<span><span class="co">## # RSQLite version at creation time: 2.2.0</span></span>
+<span><span class="co">## # DBSCHEMAVERSION: 1.0</span></span></code></pre>
+<p>As expected for an <code>AnnotationDb</code> class the general
+accessors are available.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/select.html">keytypes</a></span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1] "MODID"            "MODNAME"          "MODSTRAND"        "MODTYPE"         </span></span>
+<span><span class="co">##  [5] "REF"              "REFTYPE"          "RXENSEMBL"        "RXENSEMBLTRANS"  </span></span>
+<span><span class="co">##  [9] "RXENTREZID"       "RXGENENAME"       "SNID"             "SNNAME"          </span></span>
+<span><span class="co">## [13] "SPECENSEMBL"      "SPECENSEMBLTRANS" "SPECENTREZID"     "SPECGENENAME"    </span></span>
+<span><span class="co">## [17] "SPECTYPE"</span></span></code></pre>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/select.html">columns</a></span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1] "MODEND"           "MODID"            "MODNAME"          "MODSTART"        </span></span>
+<span><span class="co">##  [5] "MODSTRAND"        "MODTYPE"          "REF"              "REFID"           </span></span>
+<span><span class="co">##  [9] "REFTYPE"          "RXENSEMBL"        "RXENSEMBLTRANS"   "RXENTREZID"      </span></span>
+<span><span class="co">## [13] "RXGENENAME"       "RXID"             "RXRANK"           "SNID"            </span></span>
+<span><span class="co">## [17] "SNNAME"           "SPECENSEMBL"      "SPECENSEMBLTRANS" "SPECENTREZID"    </span></span>
+<span><span class="co">## [21] "SPECGENENAME"     "SPECID"           "SPECTYPE"</span></span></code></pre>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/select.html">keys</a></span><span class="op">(</span><span class="va">etdb</span>, <span class="st">"MODID"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "1" "2" "3" "4" "5" "6"</span></span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/select.html">select</a></span><span class="op">(</span><span class="va">etdb</span>, keys <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>       columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MODNAME"</span>,<span class="st">"MODTYPE"</span>,<span class="st">"MODSTART"</span>,<span class="st">"MODSTRAND"</span>,<span class="st">"SNNAME"</span>,</span>
+<span>                   <span class="st">"RXGENENAME"</span>,<span class="st">"SPECTYPE"</span>,<span class="st">"SPECGENENAME"</span><span class="op">)</span>,</span>
+<span>       keytype <span class="op">=</span> <span class="st">"MODID"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## 'select()' returned 1:1 mapping between keys and columns</span></span></code></pre>
+<pre><code><span><span class="co">##   MODID MODNAME MODTYPE MODSTART MODSTRAND    SNNAME  RXGENENAME SPECTYPE</span></span>
+<span><span class="co">## 1     1   Um_14      Um       14         + NR_003285 fibrillarin   snoRNA</span></span>
+<span><span class="co">##   SPECGENENAME</span></span>
+<span><span class="co">## 1      SNORD71</span></span></code></pre>
+<p>The columns with the prefix <code>RX</code> or <code>SPEC</code>
+reference the reaction enzyme and the location specifier. This can be
+the same information, but for ribosomal modifications from the snoRNAdb
+it is of course fibrillarin and a snoRNA.</p>
+<p>In addition the following accessor for metadata are available as
+well.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/organism_species.html" class="external-link">species</a></span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Homo sapiens"</span></span></code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/organism_species.html" class="external-link">organism</a></span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Homo sapiens"</span></span></code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/GenomeInfoDb/man/seqinfo.html" class="external-link">seqlevels</a></span><span class="op">(</span><span class="va">etdb</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "NR_003285" "NR_003286" "NR_003287" "NR_004430" "NR_002716" "NR_003925"</span></span>
+<span><span class="co">## [7] "NR_002756" "NR_004394" "NR_029422"</span></span></code></pre>
 </div>
-<div id="accessing-rna-modifications" class="section level1">
-<h1 class="hasAnchor">
-<a href="#accessing-rna-modifications" class="anchor"></a>Accessing RNA modifications</h1>
-<p>The specialized accessors are <code><a href="../reference/modifications.html">modifications()</a></code> and <code><a href="../reference/modifications.html">modificationsBy()</a></code>. <code><a href="../reference/modifications.html">modifications()</a></code> allows for filtering results, whereas <code><a href="../reference/modifications.html">modificationsBy()</a></code> returns all the modifications in batches separated by certain information.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/modifications.html">modifications</a></span><span class="op">(</span><span class="va">etdb</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mod_id"</span>,<span class="st">"mod_type"</span>,<span class="st">"mod_name"</span>,
-                                <span class="st">"rx_genename"</span>,<span class="st">"spec_genename"</span>,
-                                <span class="st">"ref_type"</span>,<span class="st">"ref"</span><span class="op">)</span>,
-              filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mod_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## GRanges object with 3 ranges and 7 metadata columns:
-##        seqnames    ranges strand |    mod_id    mod_type    mod_name
-##           &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt; &lt;character&gt; &lt;character&gt;
-##   [1] NR_003285        14      + |         1          Um       Um_14
-##   [2] NR_003285        55      + |         2           Y        Y_55
-##   [3] NR_003285        69      + |         3           Y        Y_69
-##                  rx_genename   spec_genename        ref_type             ref
-##              &lt;CharacterList&gt; &lt;CharacterList&gt; &lt;CharacterList&gt; &lt;CharacterList&gt;
-##   [1]            fibrillarin         SNORD71            PMID        16381836
-##   [2] dyskerin pseudouridi..         SNORA72            PMID        16381836
-##   [3] dyskerin pseudouridi..         SNORA69            PMID        16381836
-##   -------
-##   seqinfo: 9 sequences from hg38 genome; no seqlengths</code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># split by sequence name, usually a transcipt identifier</span>
-<span class="fu"><a href="../reference/modifications.html">modificationsBy</a></span><span class="op">(</span><span class="va">etdb</span>, by <span class="op">=</span> <span class="st">"seqnames"</span><span class="op">)</span></code></pre></div>
-<pre><code>## GRangesList object of length 9:
-## $NR_003285
-## GRanges object with 4 ranges and 3 metadata columns:
-##        seqnames    ranges strand |    mod_id         mod    mod_name
-##           &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt; &lt;character&gt; &lt;character&gt;
-##   [1] NR_003285        14      + |         1          Um       Um_14
-##   [2] NR_003285        55      + |         2           Y        Y_55
-##   [3] NR_003285        69      + |         3           Y        Y_69
-##   [4] NR_003285        75      + |         4          Gm       Gm_75
-##   -------
-##   seqinfo: 9 sequences from hg38 genome; no seqlengths
-## 
-## ...
-## &lt;8 more elements&gt;</code></pre>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># split modification type</span>
-<span class="fu"><a href="../reference/modifications.html">modificationsBy</a></span><span class="op">(</span><span class="va">etdb</span>, by <span class="op">=</span> <span class="st">"modtype"</span><span class="op">)</span></code></pre></div>
-<pre><code>## GRangesList object of length 5:
-## $Am
-## GRanges object with 39 ranges and 3 metadata columns:
-##         seqnames    ranges strand |         mod    mod_id    mod_name
-##            &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt; &lt;integer&gt; &lt;character&gt;
-##    [1] NR_003286        27      + |          Am         5       Am_27
-##    [2] NR_003286        99      + |          Am         9       Am_99
-##    [3] NR_003286       159      + |          Am        15      Am_159
-##    [4] NR_003286       166      + |          Am        16      Am_166
-##    [5] NR_003286       468      + |          Am        25      Am_468
-##    ...       ...       ...    ... .         ...       ...         ...
-##   [35] NR_002716        30      + |          Am       207       Am_30
-##   [36] NR_003925        65      + |          Am       216       Am_65
-##   [37] NR_004394        47      + |          Am       226       Am_47
-##   [38] NR_004394        53      + |          Am       227       Am_53
-##   [39] NR_004394        53      + |          Am       228       Am_53
-##   -------
-##   seqinfo: 9 sequences from hg38 genome; no seqlengths
-## 
-## ...
-## &lt;4 more elements&gt;</code></pre>
+<div class="section level2">
+<h2 id="accessing-rna-modifications">Accessing RNA modifications<a class="anchor" aria-label="anchor" href="#accessing-rna-modifications"></a>
+</h2>
+<p>The specialized accessors are <code><a href="../reference/modifications.html">modifications()</a></code> and
+<code><a href="../reference/modifications.html">modificationsBy()</a></code>. <code><a href="../reference/modifications.html">modifications()</a></code> allows for
+filtering results, whereas <code><a href="../reference/modifications.html">modificationsBy()</a></code> returns all
+the modifications in batches separated by certain information.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/modifications.html">modifications</a></span><span class="op">(</span><span class="va">etdb</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mod_id"</span>,<span class="st">"mod_type"</span>,<span class="st">"mod_name"</span>,</span>
+<span>                                <span class="st">"rx_genename"</span>,<span class="st">"spec_genename"</span>,</span>
+<span>                                <span class="st">"ref_type"</span>,<span class="st">"ref"</span><span class="op">)</span>,</span>
+<span>              filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mod_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## GRanges object with 3 ranges and 7 metadata columns:</span></span>
+<span><span class="co">##        seqnames    ranges strand |    mod_id    mod_type    mod_name</span></span>
+<span><span class="co">##           &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt; &lt;character&gt; &lt;character&gt;</span></span>
+<span><span class="co">##   [1] NR_003285        14      + |         1          Um       Um_14</span></span>
+<span><span class="co">##   [2] NR_003285        55      + |         2           Y        Y_55</span></span>
+<span><span class="co">##   [3] NR_003285        69      + |         3           Y        Y_69</span></span>
+<span><span class="co">##                  rx_genename   spec_genename        ref_type             ref</span></span>
+<span><span class="co">##              &lt;CharacterList&gt; &lt;CharacterList&gt; &lt;CharacterList&gt; &lt;CharacterList&gt;</span></span>
+<span><span class="co">##   [1]            fibrillarin         SNORD71            PMID        16381836</span></span>
+<span><span class="co">##   [2] dyskerin pseudouridi..         SNORA72            PMID        16381836</span></span>
+<span><span class="co">##   [3] dyskerin pseudouridi..         SNORA69            PMID        16381836</span></span>
+<span><span class="co">##   -------</span></span>
+<span><span class="co">##   seqinfo: 9 sequences from hg38 genome; no seqlengths</span></span></code></pre>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># split by sequence name, usually a transcipt identifier</span></span>
+<span><span class="fu"><a href="../reference/modifications.html">modificationsBy</a></span><span class="op">(</span><span class="va">etdb</span>, by <span class="op">=</span> <span class="st">"seqnames"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## GRangesList object of length 9:</span></span>
+<span><span class="co">## $NR_003285</span></span>
+<span><span class="co">## GRanges object with 4 ranges and 3 metadata columns:</span></span>
+<span><span class="co">##        seqnames    ranges strand |    mod_id         mod    mod_name</span></span>
+<span><span class="co">##           &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt; &lt;character&gt; &lt;character&gt;</span></span>
+<span><span class="co">##   [1] NR_003285        14      + |         1          Um       Um_14</span></span>
+<span><span class="co">##   [2] NR_003285        55      + |         2           Y        Y_55</span></span>
+<span><span class="co">##   [3] NR_003285        69      + |         3           Y        Y_69</span></span>
+<span><span class="co">##   [4] NR_003285        75      + |         4          Gm       Gm_75</span></span>
+<span><span class="co">##   -------</span></span>
+<span><span class="co">##   seqinfo: 9 sequences from hg38 genome; no seqlengths</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ...</span></span>
+<span><span class="co">## &lt;8 more elements&gt;</span></span></code></pre>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># split modification type</span></span>
+<span><span class="fu"><a href="../reference/modifications.html">modificationsBy</a></span><span class="op">(</span><span class="va">etdb</span>, by <span class="op">=</span> <span class="st">"modtype"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## GRangesList object of length 5:</span></span>
+<span><span class="co">## $Am</span></span>
+<span><span class="co">## GRanges object with 39 ranges and 3 metadata columns:</span></span>
+<span><span class="co">##         seqnames    ranges strand |         mod    mod_id    mod_name</span></span>
+<span><span class="co">##            &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt; &lt;integer&gt; &lt;character&gt;</span></span>
+<span><span class="co">##    [1] NR_003286        27      + |          Am         5       Am_27</span></span>
+<span><span class="co">##    [2] NR_003286        99      + |          Am         9       Am_99</span></span>
+<span><span class="co">##    [3] NR_003286       159      + |          Am        15      Am_159</span></span>
+<span><span class="co">##    [4] NR_003286       166      + |          Am        16      Am_166</span></span>
+<span><span class="co">##    [5] NR_003286       468      + |          Am        25      Am_468</span></span>
+<span><span class="co">##    ...       ...       ...    ... .         ...       ...         ...</span></span>
+<span><span class="co">##   [35] NR_002716        30      + |          Am       207       Am_30</span></span>
+<span><span class="co">##   [36] NR_003925        65      + |          Am       216       Am_65</span></span>
+<span><span class="co">##   [37] NR_004394        47      + |          Am       226       Am_47</span></span>
+<span><span class="co">##   [38] NR_004394        53      + |          Am       227       Am_53</span></span>
+<span><span class="co">##   [39] NR_004394        53      + |          Am       228       Am_53</span></span>
+<span><span class="co">##   -------</span></span>
+<span><span class="co">##   seqinfo: 9 sequences from hg38 genome; no seqlengths</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ...</span></span>
+<span><span class="co">## &lt;4 more elements&gt;</span></span></code></pre>
 </div>
-<div id="shifting-coordinates-from-genomic-to-transcriptomic" class="section level1">
-<h1 class="hasAnchor">
-<a href="#shifting-coordinates-from-genomic-to-transcriptomic" class="anchor"></a>Shifting coordinates from genomic to transcriptomic</h1>
-<p>Since epitranscriptomic modifications by their nature can have different meaning for each of the individual transcript variants. This also introduces conflicts for saving epitranscriptomics coordinates. In the example above the coordinates are given per transcript, because of the source data.</p>
-<p>However, not all sources report transcript coordinates. It might be of interest to shift the coordinates to transcript coordinates and at the same time taking care that with transcript variants multiple options exist for each of the transcript maturation process: From one genomic coordinate, multiple transcriptomic coordinates can be spawned.</p>
-<p>Whether this is biologically relevant or whether biological evidence does exist for each modification on each transcript cannot be guaranteed or differentiated technically depending on the methods used. This might change with the arrival of new techniques allowing for detection of modified nucleotides per individual transcript variant.</p>
+<div class="section level2">
+<h2 id="shifting-coordinates-from-genomic-to-transcriptomic">Shifting coordinates from genomic to transcriptomic<a class="anchor" aria-label="anchor" href="#shifting-coordinates-from-genomic-to-transcriptomic"></a>
+</h2>
+<p>Since epitranscriptomic modifications by their nature can have
+different meaning for each of the individual transcript variants. This
+also introduces conflicts for saving epitranscriptomics coordinates. In
+the example above the coordinates are given per transcript, because of
+the source data.</p>
+<p>However, not all sources report transcript coordinates. It might be
+of interest to shift the coordinates to transcript coordinates and at
+the same time taking care that with transcript variants multiple options
+exist for each of the transcript maturation process: From one genomic
+coordinate, multiple transcriptomic coordinates can be spawned.</p>
+<p>Whether this is biologically relevant or whether biological evidence
+does exist for each modification on each transcript cannot be guaranteed
+or differentiated technically depending on the methods used. This might
+change with the arrival of new techniques allowing for detection of
+modified nucleotides per individual transcript variant.</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">TxDb.Hsapiens.UCSC.hg38.knownGene</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BSgenome.Hsapiens.UCSC.hg38</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">TxDb.Hsapiens.UCSC.hg38.knownGene</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">BSgenome.Hsapiens.UCSC.hg38</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">txdb</span> <span class="op">&lt;-</span> <span class="va">TxDb.Hsapiens.UCSC.hg38.knownGene</span>
-<span class="fu">seqlevels</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"chr1"</span>
-<span class="va">bs</span> <span class="op">&lt;-</span> <span class="va">BSgenome.Hsapiens.UCSC.hg38</span>
-
-<span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html">EpiTxDb.Hs.hg38.RMBase</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## snapshotDate(): 2021-04-15</code></pre>
-<pre><code>## loading from cache</code></pre>
+<code class="sourceCode R"><span><span class="va">txdb</span> <span class="op">&lt;-</span> <span class="va">TxDb.Hsapiens.UCSC.hg38.knownGene</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/GenomeInfoDb/man/seqinfo.html" class="external-link">seqlevels</a></span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"chr1"</span></span>
+<span><span class="va">bs</span> <span class="op">&lt;-</span> <span class="va">BSgenome.Hsapiens.UCSC.hg38</span></span>
+<span></span>
+<span><span class="va">etdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/EpiTxDb.Hs.hg38/man/EpiTxDb.Hs.hg38.html" class="external-link">EpiTxDb.Hs.hg38.RMBase</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## loading from cache</span></span></code></pre>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicFeatures/man/transcriptsBy.html" class="external-link">exonsBy</a></span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span></span>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modifications.html">modifications</a></span><span class="op">(</span><span class="va">etdb</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sn_name <span class="op">=</span> <span class="st">"chr1"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 47275</span></span></code></pre>
+<p>In the following example we will focus on shifting the coordinates to
+individual mature transcripts. However, keep in mind, that premature
+transcript might be of interest as well and this can be controlled via
+the <code>tx</code> arguments of
+<code><a href="../reference/shiftGenomicToTranscript.html">shiftGenomicToTranscript()</a></code></p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tx</span> <span class="op">&lt;-</span> <span class="fu">exonsBy</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span>
-<span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modifications.html">modifications</a></span><span class="op">(</span><span class="va">etdb</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>sn_name <span class="op">=</span> <span class="st">"chr1"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 47275</code></pre>
-<p>In the following example we will focus on shifting the coordinates to individual mature transcripts. However, keep in mind, that premature transcript might be of interest as well and this can be controlled via the <code>tx</code> arguments of <code><a href="../reference/shiftTranscriptToGenomic.html">shiftGenomicToTranscript()</a></code></p>
+<code class="sourceCode R"><span><span class="va">mod_tx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/shiftGenomicToTranscript.html">shiftGenomicToTranscript</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">tx</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Coordinates for 982 ranges of 'subject' not found:</span></span>
+<span><span class="co">## 'chr1:14662:-','chr1:14668:-','chr1:14766:-','chr1:139005:-','chr1:139020:-','chr1:139040:-','chr1:139127:-','chr1:629454:+','chr1:629456:+','chr1:629465:+'</span></span>
+<span><span class="co">## and more ...</span></span></code></pre>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod_tx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/shiftTranscriptToGenomic.html">shiftGenomicToTranscript</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">tx</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning: Coordinates for 905 ranges of 'subject' not found:
-## 'chr1:14662:-','chr1:14668:-','chr1:14766:-','chr1:139005:-','chr1:139020:-','chr1:139040:-','chr1:139127:-','chr1:629454:+','chr1:629456:+','chr1:629465:+'
-## and more ...</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 196189</span></span></code></pre>
+<p>Due to multiple matches for each transcript variant the number of
+modifications has increased.</p>
+<p>With the we can plot the relative positions of modifications by type
+on <code>chr1</code> transcripts.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 157694</code></pre>
-<p>Due to multiple matches for each transcript variant the number of modifications has increased.</p>
-<p>With the we can plot the relative positions of modifications by type on <code>chr1</code> transcripts.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod_tx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span><span class="op">(</span><span class="va">mod_tx</span>,<span class="fu">seqnames</span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span><span class="op">)</span>
-<span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Getting the corresponding 5'-UTR and 3'-UTR annotations</span>
-<span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu">fiveUTRsByTranscript</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span>
-<span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu">threeUTRsByTranscript</span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span>
-<span class="va">tx</span> <span class="op">&lt;-</span> <span class="va">tx</span><span class="op">[</span><span class="va">names</span><span class="op">]</span>
-<span class="va">mod_tx</span> <span class="op">&lt;-</span> <span class="va">mod_tx</span><span class="op">[</span><span class="va">names</span><span class="op">]</span>
-<span class="va">fp_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">names</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">fp</span><span class="op">)</span><span class="op">)</span>
-<span class="va">fp_m</span> <span class="op">&lt;-</span> <span class="va">fp_m</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">fp_m</span><span class="op">)</span><span class="op">]</span>
-<span class="va">tp_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">names</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tp</span><span class="op">)</span><span class="op">)</span>
-<span class="va">tp_m</span> <span class="op">&lt;-</span> <span class="va">tp_m</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">tp_m</span><span class="op">)</span><span class="op">]</span>
-<span class="va">fp</span> <span class="op">&lt;-</span> <span class="va">fp</span><span class="op">[</span><span class="va">fp_m</span><span class="op">]</span>
-<span class="va">tp</span> <span class="op">&lt;-</span> <span class="va">tp</span><span class="op">[</span><span class="va">tp_m</span><span class="op">]</span>
-
-<span class="co"># Getting lengths of transcripts, 5'-UTR and 3'-UTR</span>
-<span class="va">tx_lengths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu">width</span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span>
-<span class="va">fp_lengths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0L</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">fp_lengths</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">names</span>
-<span class="va">fp_lengths</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">fp</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu">width</span><span class="op">(</span><span class="va">fp</span><span class="op">)</span><span class="op">)</span>
-<span class="va">tp_lengths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0L</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tp_lengths</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">names</span>
-<span class="va">tp_lengths</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tp</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu">width</span><span class="op">(</span><span class="va">tp</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Rescale modifications</span>
-<span class="co"># CDS start is at position 1L and cds end at position 1000L</span>
-<span class="va">from</span> <span class="op">&lt;-</span> <span class="fu">IRanges</span><span class="op">(</span><span class="va">fp_lengths</span><span class="op">+</span><span class="fl">1L</span>, <span class="va">tx_lengths</span> <span class="op">-</span> <span class="va">tp_lengths</span><span class="op">)</span>
-<span class="va">to</span> <span class="op">&lt;-</span> <span class="fu">IRanges</span><span class="op">(</span><span class="fl">1L</span>,<span class="fl">1000L</span><span class="op">)</span>
-<span class="va">mod_rescale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rescale.html">rescale</a></span><span class="op">(</span><span class="va">mod_tx</span>, <span class="va">to</span>, <span class="va">from</span><span class="op">)</span>
-
-<span class="co"># Construct result data.frame</span>
-<span class="va">rel_pos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>mod_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu">mcols</span><span class="op">(</span><span class="va">mod_rescale</span>,level<span class="op">=</span><span class="st">"within"</span><span class="op">)</span><span class="op">[</span>,<span class="st">"mod_type"</span><span class="op">]</span><span class="op">)</span>,
-                      rel_pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/start.html">start</a></span><span class="op">(</span><span class="va">mod_rescale</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">rel_pos</span> <span class="op">&lt;-</span> <span class="va">rel_pos</span><span class="op">[</span><span class="va">rel_pos</span><span class="op">$</span><span class="va">rel_pos</span> <span class="op">&lt;</span> <span class="fl">1500</span> <span class="op">&amp;</span> <span class="va">rel_pos</span><span class="op">$</span><span class="va">rel_pos</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">500</span>,<span class="op">]</span></code></pre></div>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rel_pos</span><span class="op">[</span><span class="va">rel_pos</span><span class="op">$</span><span class="va">mod_type</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m6A"</span>,<span class="st">"m1A"</span>,<span class="st">"Y"</span><span class="op">)</span>,<span class="op">]</span>,
-       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rel_pos</span>, colour <span class="op">=</span> <span class="va">mod_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mod_tx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/splitAsList.html" class="external-link">split</a></span><span class="op">(</span><span class="va">mod_tx</span>,<span class="fu"><a href="https://rdrr.io/pkg/GenomeInfoDb/man/seqinfo.html" class="external-link">seqnames</a></span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">mod_tx</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Getting the corresponding 5'-UTR and 3'-UTR annotations</span></span>
+<span><span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicFeatures/man/transcriptsBy.html" class="external-link">fiveUTRsByTranscript</a></span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span></span>
+<span><span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicFeatures/man/transcriptsBy.html" class="external-link">threeUTRsByTranscript</a></span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span></span>
+<span><span class="va">tx</span> <span class="op">&lt;-</span> <span class="va">tx</span><span class="op">[</span><span class="va">names</span><span class="op">]</span></span>
+<span><span class="va">mod_tx</span> <span class="op">&lt;-</span> <span class="va">mod_tx</span><span class="op">[</span><span class="va">names</span><span class="op">]</span></span>
+<span><span class="va">fp_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">names</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">fp</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">fp_m</span> <span class="op">&lt;-</span> <span class="va">fp_m</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">fp_m</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">tp_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">names</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tp</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tp_m</span> <span class="op">&lt;-</span> <span class="va">tp_m</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">tp_m</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">fp</span> <span class="op">&lt;-</span> <span class="va">fp</span><span class="op">[</span><span class="va">fp_m</span><span class="op">]</span></span>
+<span><span class="va">tp</span> <span class="op">&lt;-</span> <span class="va">tp</span><span class="op">[</span><span class="va">tp_m</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Getting lengths of transcripts, 5'-UTR and 3'-UTR</span></span>
+<span><span class="va">tx_lengths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html" class="external-link">width</a></span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">fp_lengths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0L</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">fp_lengths</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">names</span></span>
+<span><span class="va">fp_lengths</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">fp</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html" class="external-link">width</a></span><span class="op">(</span><span class="va">fp</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tp_lengths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0L</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">tx</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tp_lengths</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">names</span></span>
+<span><span class="va">tp_lengths</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tp</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html" class="external-link">width</a></span><span class="op">(</span><span class="va">tp</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Rescale modifications</span></span>
+<span><span class="co"># CDS start is at position 1L and cds end at position 1000L</span></span>
+<span><span class="va">from</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/IRanges-constructor.html" class="external-link">IRanges</a></span><span class="op">(</span><span class="va">fp_lengths</span><span class="op">+</span><span class="fl">1L</span>, <span class="va">tx_lengths</span> <span class="op">-</span> <span class="va">tp_lengths</span><span class="op">)</span></span>
+<span><span class="va">to</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/IRanges-constructor.html" class="external-link">IRanges</a></span><span class="op">(</span><span class="fl">1L</span>,<span class="fl">1000L</span><span class="op">)</span></span>
+<span><span class="va">mod_rescale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rescale.html">rescale</a></span><span class="op">(</span><span class="va">mod_tx</span>, <span class="va">to</span>, <span class="va">from</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Construct result data.frame</span></span>
+<span><span class="va">rel_pos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>mod_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">mcols</a></span><span class="op">(</span><span class="va">mod_rescale</span>,level<span class="op">=</span><span class="st">"within"</span><span class="op">)</span><span class="op">[</span>,<span class="st">"mod_type"</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>                      rel_pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/start.html" class="external-link">start</a></span><span class="op">(</span><span class="va">mod_rescale</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">rel_pos</span> <span class="op">&lt;-</span> <span class="va">rel_pos</span><span class="op">[</span><span class="va">rel_pos</span><span class="op">$</span><span class="va">rel_pos</span> <span class="op">&lt;</span> <span class="fl">1500</span> <span class="op">&amp;</span> <span class="va">rel_pos</span><span class="op">$</span><span class="va">rel_pos</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">500</span>,<span class="op">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">rel_pos</span><span class="op">[</span><span class="va">rel_pos</span><span class="op">$</span><span class="va">mod_type</span> <span class="op"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m6A"</span>,<span class="st">"m1A"</span>,<span class="st">"Y"</span><span class="op">)</span>,<span class="op">]</span>,</span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rel_pos</span>, colour <span class="op">=</span> <span class="va">mod_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html" class="external-link">geom_density</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="EpiTxDb_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
-<div id="session-info" class="section level1">
-<h1 class="hasAnchor">
-<a href="#session-info" class="anchor"></a>Session info</h1>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## R Under development (unstable) (2021-04-15 r80175)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.2 LTS
-## 
-## Matrix products: default
-## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
-## 
-## locale:
-##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
-##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
-##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
-##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
-##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
-## 
-## attached base packages:
-## [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
-## [8] methods   base     
-## 
-## other attached packages:
-##  [1] ggplot2_3.3.3                           
-##  [2] BSgenome.Hsapiens.UCSC.hg38_1.4.3       
-##  [3] BSgenome_1.59.2                         
-##  [4] rtracklayer_1.51.5                      
-##  [5] TxDb.Hsapiens.UCSC.hg38.knownGene_3.10.0
-##  [6] GenomicFeatures_1.43.8                  
-##  [7] GenomicRanges_1.43.4                    
-##  [8] GenomeInfoDb_1.27.11                    
-##  [9] EpiTxDb.Hs.hg38_0.99.7                  
-## [10] AnnotationHub_2.99.5                    
-## [11] BiocFileCache_1.99.6                    
-## [12] dbplyr_2.1.1                            
-## [13] EpiTxDb_1.3.3                           
-## [14] Modstrings_1.7.1                        
-## [15] Biostrings_2.59.2                       
-## [16] XVector_0.31.1                          
-## [17] AnnotationDbi_1.53.1                    
-## [18] IRanges_2.25.9                          
-## [19] S4Vectors_0.29.15                       
-## [20] Biobase_2.51.0                          
-## [21] BiocGenerics_0.37.2                     
-## [22] BiocStyle_2.19.2                        
-## 
-## loaded via a namespace (and not attached):
-##  [1] colorspace_2.0-0              rjson_0.2.20                 
-##  [3] ellipsis_0.3.1                rprojroot_2.0.2              
-##  [5] fs_1.5.0                      farver_2.1.0                 
-##  [7] bit64_4.0.5                   interactiveDisplayBase_1.29.0
-##  [9] fansi_0.4.2                   xml2_1.3.2                   
-## [11] cachem_1.0.4                  knitr_1.32                   
-## [13] jsonlite_1.7.2                Rsamtools_2.7.2              
-## [15] png_0.1-7                     shiny_1.6.0                  
-## [17] BiocManager_1.30.12           compiler_4.1.0               
-## [19] httr_1.4.2                    assertthat_0.2.1             
-## [21] Matrix_1.3-2                  fastmap_1.1.0                
-## [23] tRNA_1.9.0                    later_1.1.0.1                
-## [25] htmltools_0.5.1.1             prettyunits_1.1.1            
-## [27] tools_4.1.0                   gtable_0.3.0                 
-## [29] glue_1.4.2                    GenomeInfoDbData_1.2.4       
-## [31] dplyr_1.0.5                   rappdirs_0.3.3               
-## [33] Rcpp_1.0.6                    jquerylib_0.1.3              
-## [35] pkgdown_1.6.1                 vctrs_0.3.7                  
-## [37] tRNAdbImport_1.9.0            xfun_0.22                    
-## [39] stringr_1.4.0                 Structstrings_1.7.2          
-## [41] mime_0.10                     lifecycle_1.0.0              
-## [43] restfulr_0.0.13               XML_3.99-0.6                 
-## [45] zlibbioc_1.37.0               scales_1.1.1                 
-## [47] ragg_1.1.2                    hms_1.0.0                    
-## [49] promises_1.2.0.1              MatrixGenerics_1.3.1         
-## [51] SummarizedExperiment_1.21.3   yaml_2.2.1                   
-## [53] curl_4.3                      memoise_2.0.0                
-## [55] sass_0.3.1                    biomaRt_2.47.7               
-## [57] stringi_1.5.3                 RSQLite_2.2.6                
-## [59] highr_0.9                     BiocVersion_3.13.1           
-## [61] BiocIO_1.1.2                  desc_1.3.0                   
-## [63] filelock_1.0.2                BiocParallel_1.25.5          
-## [65] rlang_0.4.10                  pkgconfig_2.0.3              
-## [67] systemfonts_1.0.1             matrixStats_0.58.0           
-## [69] bitops_1.0-6                  evaluate_0.14                
-## [71] lattice_0.20-41               purrr_0.3.4                  
-## [73] labeling_0.4.2                GenomicAlignments_1.27.2     
-## [75] bit_4.0.4                     tidyselect_1.1.0             
-## [77] magrittr_2.0.1                bookdown_0.21                
-## [79] R6_2.5.0                      generics_0.1.0               
-## [81] DelayedArray_0.17.10          DBI_1.1.1                    
-## [83] pillar_1.6.0                  withr_2.4.2                  
-## [85] KEGGREST_1.31.1               RCurl_1.98-1.3               
-## [87] tibble_3.1.1                  crayon_1.4.1                 
-## [89] utf8_1.2.1                    rmarkdown_2.7                
-## [91] progress_1.2.2                grid_4.1.0                   
-## [93] blob_1.2.1                    digest_0.6.27                
-## [95] xtable_1.8-4                  httpuv_1.5.5                 
-## [97] textshaping_0.3.3             munsell_0.5.0                
-## [99] bslib_0.2.4</code></pre>
+<div class="section level2">
+<h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
+</h2>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## R Under development (unstable) (2024-03-13 r86113)</span></span>
+<span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>
+<span><span class="co">## Running under: Ubuntu 22.04.4 LTS</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Matrix products: default</span></span>
+<span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## locale:</span></span>
+<span><span class="co">##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
+<span><span class="co">##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span></span>
+<span><span class="co">##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span></span>
+<span><span class="co">##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span></span>
+<span><span class="co">##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
+<span><span class="co">## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## time zone: UTC</span></span>
+<span><span class="co">## tzcode source: system (glibc)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## attached base packages:</span></span>
+<span><span class="co">## [1] stats4    stats     graphics  grDevices utils     datasets  methods  </span></span>
+<span><span class="co">## [8] base     </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## other attached packages:</span></span>
+<span><span class="co">##  [1] ggplot2_3.5.0                           </span></span>
+<span><span class="co">##  [2] BSgenome.Hsapiens.UCSC.hg38_1.4.5       </span></span>
+<span><span class="co">##  [3] BSgenome_1.71.2                         </span></span>
+<span><span class="co">##  [4] rtracklayer_1.63.1                      </span></span>
+<span><span class="co">##  [5] BiocIO_1.13.0                           </span></span>
+<span><span class="co">##  [6] TxDb.Hsapiens.UCSC.hg38.knownGene_3.18.0</span></span>
+<span><span class="co">##  [7] GenomicFeatures_1.55.4                  </span></span>
+<span><span class="co">##  [8] GenomicRanges_1.55.3                    </span></span>
+<span><span class="co">##  [9] EpiTxDb.Hs.hg38_0.99.7                  </span></span>
+<span><span class="co">## [10] AnnotationHub_3.11.1                    </span></span>
+<span><span class="co">## [11] BiocFileCache_2.11.1                    </span></span>
+<span><span class="co">## [12] dbplyr_2.4.0                            </span></span>
+<span><span class="co">## [13] EpiTxDb_1.15.2                          </span></span>
+<span><span class="co">## [14] Modstrings_1.19.0                       </span></span>
+<span><span class="co">## [15] Biostrings_2.71.4                       </span></span>
+<span><span class="co">## [16] GenomeInfoDb_1.39.9                     </span></span>
+<span><span class="co">## [17] XVector_0.43.1                          </span></span>
+<span><span class="co">## [18] AnnotationDbi_1.65.2                    </span></span>
+<span><span class="co">## [19] IRanges_2.37.1                          </span></span>
+<span><span class="co">## [20] S4Vectors_0.41.4                        </span></span>
+<span><span class="co">## [21] Biobase_2.63.0                          </span></span>
+<span><span class="co">## [22] BiocGenerics_0.49.1                     </span></span>
+<span><span class="co">## [23] BiocStyle_2.31.0                        </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## loaded via a namespace (and not attached):</span></span>
+<span><span class="co">##  [1] DBI_1.2.2                   bitops_1.0-7               </span></span>
+<span><span class="co">##  [3] httr2_1.0.0                 tRNAdbImport_1.21.1        </span></span>
+<span><span class="co">##  [5] biomaRt_2.59.1              rlang_1.1.3                </span></span>
+<span><span class="co">##  [7] magrittr_2.0.3              matrixStats_1.2.0          </span></span>
+<span><span class="co">##  [9] compiler_4.4.0              RSQLite_2.3.5              </span></span>
+<span><span class="co">## [11] png_0.1-8                   systemfonts_1.0.6          </span></span>
+<span><span class="co">## [13] vctrs_0.6.5                 txdbmaker_0.99.6           </span></span>
+<span><span class="co">## [15] stringr_1.5.1               pkgconfig_2.0.3            </span></span>
+<span><span class="co">## [17] crayon_1.5.2                fastmap_1.1.1              </span></span>
+<span><span class="co">## [19] labeling_0.4.3              utf8_1.2.4                 </span></span>
+<span><span class="co">## [21] Rsamtools_2.19.3            rmarkdown_2.26             </span></span>
+<span><span class="co">## [23] ragg_1.3.0                  purrr_1.0.2                </span></span>
+<span><span class="co">## [25] bit_4.0.5                   xfun_0.42                  </span></span>
+<span><span class="co">## [27] zlibbioc_1.49.3             cachem_1.0.8               </span></span>
+<span><span class="co">## [29] Structstrings_1.19.0        jsonlite_1.8.8             </span></span>
+<span><span class="co">## [31] progress_1.2.3              blob_1.2.4                 </span></span>
+<span><span class="co">## [33] highr_0.10                  DelayedArray_0.29.9        </span></span>
+<span><span class="co">## [35] BiocParallel_1.37.1         parallel_4.4.0             </span></span>
+<span><span class="co">## [37] prettyunits_1.2.0           R6_2.5.1                   </span></span>
+<span><span class="co">## [39] bslib_0.6.1                 stringi_1.8.3              </span></span>
+<span><span class="co">## [41] jquerylib_0.1.4             bookdown_0.38              </span></span>
+<span><span class="co">## [43] SummarizedExperiment_1.33.3 knitr_1.45                 </span></span>
+<span><span class="co">## [45] Matrix_1.6-5                tidyselect_1.2.1           </span></span>
+<span><span class="co">## [47] abind_1.4-5                 yaml_2.3.8                 </span></span>
+<span><span class="co">## [49] codetools_0.2-19            curl_5.2.1                 </span></span>
+<span><span class="co">## [51] tRNA_1.21.1                 lattice_0.22-5             </span></span>
+<span><span class="co">## [53] tibble_3.2.1                withr_3.0.0                </span></span>
+<span><span class="co">## [55] KEGGREST_1.43.0             evaluate_0.23              </span></span>
+<span><span class="co">## [57] desc_1.4.3                  xml2_1.3.6                 </span></span>
+<span><span class="co">## [59] pillar_1.9.0                BiocManager_1.30.22        </span></span>
+<span><span class="co">## [61] filelock_1.0.3              MatrixGenerics_1.15.0      </span></span>
+<span><span class="co">## [63] generics_0.1.3              RCurl_1.98-1.14            </span></span>
+<span><span class="co">## [65] BiocVersion_3.19.1          hms_1.1.3                  </span></span>
+<span><span class="co">## [67] munsell_0.5.0               scales_1.3.0               </span></span>
+<span><span class="co">## [69] glue_1.7.0                  tools_4.4.0                </span></span>
+<span><span class="co">## [71] GenomicAlignments_1.39.4    fs_1.6.3                   </span></span>
+<span><span class="co">## [73] XML_3.99-0.16.1             grid_4.4.0                 </span></span>
+<span><span class="co">## [75] colorspace_2.1-0            GenomeInfoDbData_1.2.11    </span></span>
+<span><span class="co">## [77] restfulr_0.0.15             cli_3.6.2                  </span></span>
+<span><span class="co">## [79] rappdirs_0.3.3              textshaping_0.3.7          </span></span>
+<span><span class="co">## [81] fansi_1.0.6                 S4Arrays_1.3.6             </span></span>
+<span><span class="co">## [83] dplyr_1.1.4                 gtable_0.3.4               </span></span>
+<span><span class="co">## [85] sass_0.4.9                  digest_0.6.35              </span></span>
+<span><span class="co">## [87] SparseArray_1.3.4           farver_2.1.1               </span></span>
+<span><span class="co">## [89] rjson_0.2.21                memoise_2.0.1              </span></span>
+<span><span class="co">## [91] htmltools_0.5.7             pkgdown_2.0.7              </span></span>
+<span><span class="co">## [93] lifecycle_1.0.4             httr_1.4.7                 </span></span>
+<span><span class="co">## [95] mime_0.12                   bit64_4.0.5</span></span></code></pre>
 <p><a name="References"></a></p>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-Lestrade-2006" class="csl-entry">
-Lestrade, Laurent, and Michel J. Weber. 2006. <span>“<span class="nocase">snoRNA-LBME-db, a comprehensive database of human H/ACA and C/D box snoRNAs</span>.”</span> <em>Nucleic Acids Research</em> 34 (January): D158–62. <a href="https://doi.org/10.1093/nar/gkj002">https://doi.org/10.1093/nar/gkj002</a>.
+<div id="ref-Lestrade.2006" class="csl-entry">
+Lestrade, Laurent, and Michel J. Weber. 2006. <span>“<span class="nocase">snoRNA-LBME-db, a comprehensive database of human H/ACA
+and C/D box snoRNAs</span>.”</span> <em>Nucleic Acids Research</em> 34
+(suppl_1): D158–62. <a href="https://doi.org/10.1093/nar/gkj002" class="external-link">https://doi.org/10.1093/nar/gkj002</a>.
 </div>
-<div id="ref-Sun-2015" class="csl-entry">
-Sun, Wen-Ju, Jun-Hao Li, Shun Liu, Jie Wu, Hui Zhou, Liang-Hu Qu, and Jian-Hua Yang. 2015. <span>“<span class="nocase">RMBase: a resource for decoding the landscape of RNA modifications from high-throughput sequencing data</span>.”</span> <em>Nucleic Acids Research</em> 44 (D1): D259–65. <a href="https://doi.org/10.1093/nar/gkv1036">https://doi.org/10.1093/nar/gkv1036</a>.
+<div id="ref-Sun.2015" class="csl-entry">
+Sun, Wen-Ju, Jun-Hao Li, Shun Liu, Jie Wu, Hui Zhou, Liang-Hu Qu, and
+Jian-Hua Yang. 2015. <span>“<span class="nocase">RMBase: a resource for
+decoding the landscape of RNA modifications from high-throughput
+sequencing data</span>.”</span> <em>Nucleic Acids Research</em> 44 (D1):
+D259–65. <a href="https://doi.org/10.1093/nar/gkv1036" class="external-link">https://doi.org/10.1093/nar/gkv1036</a>.
 </div>
-<div id="ref-Xuan-2017" class="csl-entry">
-Xuan, Jia-Jia, Wen-Ju Sun, Peng-Hui Lin, Ke-Ren Zhou, Shun Liu, Ling-Ling Zheng, Liang-Hu Qu, and Jian-Hua Yang. 2017. <span>“<span class="nocase">RMBase v2.0: deciphering the map of RNA modifications from epitranscriptome sequencing data</span>.”</span> <em>Nucleic Acids Research</em> 46 (D1): D327–34. <a href="https://doi.org/10.1093/nar/gkx934">https://doi.org/10.1093/nar/gkx934</a>.
+<div id="ref-Xuan.2017" class="csl-entry">
+Xuan, Jia-Jia, Wen-Ju Sun, Peng-Hui Lin, Ke-Ren Zhou, Shun Liu,
+Ling-Ling Zheng, Liang-Hu Qu, and Jian-Hua Yang. 2017. <span>“<span class="nocase">RMBase v2.0: deciphering the map of RNA modifications
+from epitranscriptome sequencing data</span>.”</span> <em>Nucleic Acids
+Research</em> 46 (D1): D327–34. <a href="https://doi.org/10.1093/nar/gkx934" class="external-link">https://doi.org/10.1093/nar/gkx934</a>.
 </div>
 </div>
 </div>
@@ -458,11 +511,13 @@ Xuan, Jia-Jia, Wen-Ju Sun, Peng-Hui Lin, Ke-Ren Zhou, Shun Liu, Ling-Ling Zheng,
 
 
       <footer><div class="copyright">
-  <p>Developed by Felix G.M. Ernst.</p>
+  <p></p>
+<p>Developed by Felix G.M. Ernst.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -470,6 +525,8 @@ Xuan, Jia-Jia, Wen-Ju Sun, Peng-Hui Lin, Ke-Ren Zhou, Shun Liu, Ling-Ling Zheng,
 
   
 
+
+  
 
   </body>
 </html>
