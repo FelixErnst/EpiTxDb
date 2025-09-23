@@ -1,8 +1,7 @@
-pandoc: 3.1.1
-pkgdown: 2.0.7
+pandoc: '3.8'
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   EpiTxDb-creation: EpiTxDb-creation.html
   EpiTxDb: EpiTxDb.html
-last_built: 2024-03-26T22:06Z
-
+last_built: 2025-09-23T11:34Z
